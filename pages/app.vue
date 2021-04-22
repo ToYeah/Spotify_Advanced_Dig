@@ -1,19 +1,28 @@
 <template>
   <v-row>
     <v-col class="text-center">
-      <v-btn>
-        {{authRequestUri}}
-      </v-btn>
+      <a :href="authUrl">{{ authUrl }}</a>
     </v-col>
   </v-row>
 </template>
 
 <script lang="ts">
-import { Vue, Component} from 'vue-property-decorator'
-import {authRequestUri} from '@/plugins/auth'
-
+import { Vue, Component } from 'nuxt-property-decorator'
+import { Context } from '@nuxt/vue-app'
 @Component
-export default class TestComponent extends Vue {
-  private authRequestUri : string = authRequestUri;
+export default class AuthApp extends Vue {
+  get authUrl() {
+    const url = new URL('https://accounts.spotify.com/authorize')
+    const scopes: string[] = ['user-read-private', 'user-read-email']
+    const redirectUri: string = 'http://localhost:3000/api/auth/auth_redirect'
+
+    url.searchParams.set('response_type', 'code')
+    url.searchParams.set('scope', scopes.join(' '))
+    url.searchParams.set('redirect_uri', redirectUri)
+    url.searchParams.set('client_id', this.$config.clientId)
+    url.searchParams.set('state', 'state')
+    console.log(url.href)
+    return url.href
+  }
 }
 </script>
