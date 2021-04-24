@@ -71,6 +71,7 @@ export default {
   },
   privateRuntimeConfig: {
     clientSecret: process.env.CLIENT_SECRET || '',
+    redirectUri: process.env.REDIRECT_URI || '',
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

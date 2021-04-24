@@ -2,15 +2,21 @@
   <v-row>
     <v-col class="text-center">
       <a :href="authUrl">{{ authUrl }}</a>
+      <h1>{{ token }}</h1>
     </v-col>
   </v-row>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'nuxt-property-decorator'
-import { Context } from '@nuxt/vue-app'
+import { userInfoStore } from '@/store'
+
 @Component
 export default class AuthApp extends Vue {
+  get token(): string {
+    return userInfoStore.getToken
+  }
+
   get authUrl() {
     const url = new URL('https://accounts.spotify.com/authorize')
     const scopes: string[] = ['user-read-private', 'user-read-email']
@@ -23,6 +29,9 @@ export default class AuthApp extends Vue {
     url.searchParams.set('state', 'state')
     console.log(url.href)
     return url.href
+  }
+  created() {
+    console.log(userInfoStore.getToken)
   }
 }
 </script>

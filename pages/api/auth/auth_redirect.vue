@@ -1,11 +1,4 @@
-<template>
-  <v-row>
-    <v-col class="text-center">
-      <a href="http://localhost:3000/app">hello</a>
-      <h1>{{ token }}</h1>
-    </v-col>
-  </v-row>
-</template>
+<template></template>
 
 <script lang="ts">
 import { Vue, Component } from 'nuxt-property-decorator'
@@ -19,21 +12,20 @@ export default class AuthRedirect extends Vue {
     return userInfoStore.getToken
   }
 
-  async asyncData(context: Context): Promise<void> {
+  async middleware(context: Context): Promise<void> {
     const { $config, query } = context
     const isString = (arg: string | (string | null)[]): arg is string =>
       typeof arg === 'string'
-    const redirectUri = 'http://localhost:3000/api/auth/auth_redirect'
     const postParams = new URLSearchParams()
     postParams.set('grant_type', 'authorization_code')
     postParams.set('code', isString(query.code) ? query.code : '')
-    postParams.set('redirect_uri', redirectUri)
-    const res = await axios
+    postParams.set('redirect_uri', $config.redirectUri)
+    await axios
       .post('https://accounts.spotify.com/api/token', postParams, {
         headers: {
           Authorization:
             'Basic ' +
-            new Buffer($config.clientId + ':' + $config.clientSecret).toString(
+            Buffer.from($config.clientId + ':' + $config.clientSecret).toString(
               'base64'
             ),
         },
@@ -44,6 +36,10 @@ export default class AuthRedirect extends Vue {
       .catch((err) => {
         console.log(err)
       })
+  }
+
+  created() {
+    this.$router.push('/app')
   }
 }
 </script>

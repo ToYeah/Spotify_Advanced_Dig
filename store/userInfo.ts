@@ -6,7 +6,7 @@ import { Module, VuexModule, Mutation } from 'vuex-module-decorators'
   namespaced: true,
 })
 export default class UserInfo extends VuexModule {
-  public token: string = 'hello'
+  private token: string = ''
   public get getToken() {
     return this.token
   }
