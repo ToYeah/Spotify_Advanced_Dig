@@ -11,10 +11,15 @@
 import { Vue, Component } from 'nuxt-property-decorator'
 import axios from 'axios'
 import { Context } from '@nuxt/types'
+import { userInfoStore } from '@/store'
 
 @Component
 export default class AuthRedirect extends Vue {
-  async asyncData(context: Context): Promise<{ token: string }> {
+  get token(): string {
+    return userInfoStore.getToken
+  }
+
+  async asyncData(context: Context): Promise<void> {
     const { $config, query } = context
     const isString = (arg: string | (string | null)[]): arg is string =>
       typeof arg === 'string'
@@ -33,11 +38,12 @@ export default class AuthRedirect extends Vue {
             ),
         },
       })
+      .then((res) => {
+        userInfoStore.setToken(res.data.access_token)
+      })
       .catch((err) => {
         console.log(err)
       })
-    console.log(res)
-    return { token: 'res.data.access_token' }
   }
 }
 </script>
