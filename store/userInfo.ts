@@ -13,14 +13,25 @@ export default class UserInfo extends VuexModule {
   public get getToken() {
     return this.token
   }
+
+  public get getRefreshToken() {
+    return this.refresh_token
+  }
+
+  public get getloginStatus() {
+    return this.loginStatus
+  }
+
   @Mutation
   public setToken(value: string) {
     this.token = value
   }
+
   @Mutation
   public setRefreshToken(value: string) {
     this.refresh_token = value
   }
+
   @Mutation
   public setLoginStatus(value: boolean) {
     this.loginStatus = value
