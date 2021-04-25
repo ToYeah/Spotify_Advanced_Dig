@@ -20,18 +20,13 @@ export default class AuthApp extends Vue {
   get authUrl() {
     const url = new URL('https://accounts.spotify.com/authorize')
     const scopes: string[] = ['user-read-private', 'user-read-email']
-    const redirectUri: string = 'http://localhost:3000/api/auth/auth_redirect'
 
     url.searchParams.set('response_type', 'code')
     url.searchParams.set('scope', scopes.join(' '))
-    url.searchParams.set('redirect_uri', redirectUri)
+    url.searchParams.set('redirect_uri', this.$config.redirectUri)
     url.searchParams.set('client_id', this.$config.clientId)
     url.searchParams.set('state', 'state')
-    console.log(url.href)
     return url.href
-  }
-  created() {
-    console.log(userInfoStore.getToken)
   }
 }
 </script>
