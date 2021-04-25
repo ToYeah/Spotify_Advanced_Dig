@@ -13,7 +13,7 @@ export default class AuthRedirect extends Vue {
   }
 
   async middleware(context: Context): Promise<void> {
-    const { $config, query } = context
+    const { $config, query, error } = context
     const isString = (arg: string | (string | null)[]): arg is string =>
       typeof arg === 'string'
     const postParams = new URLSearchParams()
@@ -36,7 +36,7 @@ export default class AuthRedirect extends Vue {
         userInfoStore.setLoginStatus(true)
       })
       .catch((err) => {
-        console.log(err)
+        error({ statusCode: 404 })
       })
   }
 
