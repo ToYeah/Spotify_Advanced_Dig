@@ -12,7 +12,7 @@ export default class AuthRedirect extends Vue {
     return userInfoStore.getToken
   }
 
-  async middleware(context: Context): Promise<void> {
+  async fetch(context: Context): Promise<void> {
     const { $config, query, error } = context
     const isString = (arg: string | (string | null)[]): arg is string =>
       typeof arg === 'string'

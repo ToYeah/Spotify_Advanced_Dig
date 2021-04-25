@@ -3,6 +3,7 @@
     <v-col class="text-center">
       <a :href="authUrl">{{ authUrl }}</a>
       <h1>{{ token }}</h1>
+      <h2>{{ userProfile }}</h2>
     </v-col>
   </v-row>
 </template>
@@ -10,6 +11,8 @@
 <script lang="ts">
 import { Vue, Component } from 'nuxt-property-decorator'
 import { userInfoStore } from '@/store'
+import { Context } from '@nuxt/types'
+import UserProfile, { fetchUserProfile } from '@/middleware/fetchUserProfile'
 
 @Component
 export default class AuthApp extends Vue {
@@ -27,6 +30,12 @@ export default class AuthApp extends Vue {
     url.searchParams.set('client_id', this.$config.clientId)
     url.searchParams.set('state', 'state')
     return url.href
+  }
+
+  async asyncData(context: Context): Promise<{}> {
+    // const {} = context
+    const userProfileRes = await fetchUserProfile()
+    return { userProfile: userProfileRes }
   }
 }
 </script>
