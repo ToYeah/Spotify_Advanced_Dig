@@ -32,6 +32,8 @@ export default class AuthRedirect extends Vue {
       })
       .then((res) => {
         userInfoStore.setToken(res.data.access_token)
+        userInfoStore.setRefreshToken(res.data.refresh_token)
+        userInfoStore.setLoginStatus(true)
       })
       .catch((err) => {
         console.log(err)
