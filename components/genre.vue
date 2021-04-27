@@ -1,6 +1,6 @@
 <template>
   <v-select
-    v-model="selected"
+    v-model="selectedGenre"
     :items="genreSeeds"
     :menu-props="{ maxHeight: '400' }"
     label="Select"
@@ -14,13 +14,14 @@ import { Vue, Component, Prop, Watch } from 'nuxt-property-decorator'
 
 @Component
 export default class GenreSeedSelect extends Vue {
-  private selected: string[] = []
+  private selectedGenre: string[] = []
 
-  @Watch('selected')
+  @Watch('selectedGenre')
   validSeedGenresLimit() {
-    while (this.selected.length > 5) {
-      this.selected.pop()
+    while (this.selectedGenre.length > 5) {
+      this.selectedGenre.pop()
     }
+    this.$emit('selectGenre', this.selectedGenre)
   }
 
   @Prop()

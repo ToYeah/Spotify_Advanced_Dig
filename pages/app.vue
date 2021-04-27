@@ -11,7 +11,7 @@
       </v-col>
     </v-row>
     <user-profile-card :userProfile="userProfile"> </user-profile-card>
-    <search-option></search-option>
+    <search-option :requestUri="requestUri"></search-option>
   </div>
 </template>
 
@@ -31,6 +31,10 @@ import { fetchGenreSeeds } from '~/middleware/fetchGenreSeeds'
   },
 })
 export default class AuthApp extends Vue {
+  private requestUri: URL = new URL(
+    'https://api.spotify.com/v1/recommendations'
+  )
+
   get token(): string {
     return userInfoStore.getToken
   }
