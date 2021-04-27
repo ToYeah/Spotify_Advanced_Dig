@@ -10,11 +10,7 @@
         <h3>{{ token }}</h3>
       </v-col>
     </v-row>
-    <v-row>
-      <v-col>
-        <user-profile-card :userProfile="userProfile"> </user-profile-card>
-      </v-col>
-    </v-row>
+    <user-profile-card :userProfile="userProfile"> </user-profile-card>
     <search-option></search-option>
   </div>
 </template>
