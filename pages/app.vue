@@ -7,7 +7,17 @@
     </v-row>
     <v-row>
       <v-col>
+        <h3>{{ token }}</h3>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col>
         <user-profile-card :userProfile="userProfile"> </user-profile-card>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col>
+        <genre-seed-select :genreSeeds="genreSeeds"></genre-seed-select>
       </v-col>
     </v-row>
   </div>
@@ -17,12 +27,15 @@
 import { Vue, Component } from 'nuxt-property-decorator'
 import { userInfoStore } from '@/store'
 import { Context } from '@nuxt/types'
-import { fetchUserProfile } from '@/middleware/fetchUserProfile'
+import UserProfile, { fetchUserProfile } from '@/middleware/fetchUserProfile'
 import UserProfileCard from '@/components/UserProfileCard.vue'
+import GenreSeedSelect from '@/components/genre.vue'
+import { fetchGenreSeeds } from '~/middleware/fetchGenreSeeds'
 
 @Component({
   components: {
     UserProfileCard,
+    GenreSeedSelect,
   },
 })
 export default class AuthApp extends Vue {
@@ -30,7 +43,13 @@ export default class AuthApp extends Vue {
     return userInfoStore.getToken
   }
 
-  async asyncData(context: Context): Promise<{}> {
+  async asyncData(
+    context: Context
+  ): Promise<{
+    userProfile: UserProfile
+    authUrl: string
+    genreSeeds: string[]
+  }> {
     const { $config } = context
     const url = new URL('https://accounts.spotify.com/authorize')
     const scopes: string[] = ['user-read-private', 'user-read-email']
@@ -41,7 +60,12 @@ export default class AuthApp extends Vue {
     url.searchParams.set('state', 'state')
     const authUrlRes = url.href
     const userProfileRes = await fetchUserProfile()
-    return { userProfile: userProfileRes, authUrl: authUrlRes }
+    const genreSeedsRes = await fetchGenreSeeds()
+    return {
+      userProfile: userProfileRes,
+      authUrl: authUrlRes,
+      genreSeeds: genreSeedsRes,
+    }
   }
 }
 </script>
