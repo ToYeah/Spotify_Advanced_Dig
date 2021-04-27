@@ -12,6 +12,7 @@
     </v-row>
     <user-profile-card :userProfile="userProfile"> </user-profile-card>
     <search-option :requestUri="requestUri"></search-option>
+    <v-btn @click="fetchRecommendedTracks">search</v-btn>
   </div>
 </template>
 
@@ -23,6 +24,7 @@ import UserProfile, { fetchUserProfile } from '@/middleware/fetchUserProfile'
 import UserProfileCard from '@/components/UserProfileCard.vue'
 import SearchOption from '@/components/SearchOption.vue'
 import { fetchGenreSeeds } from '~/middleware/fetchGenreSeeds'
+import axios from 'axios'
 
 @Component({
   components: {
@@ -37,6 +39,15 @@ export default class AuthApp extends Vue {
 
   get token(): string {
     return userInfoStore.getToken
+  }
+
+  async fetchRecommendedTracks() {
+    const res = await axios.get(this.requestUri.href, {
+      headers: {
+        Authorization: `Bearer ${userInfoStore.getToken}`,
+      },
+    })
+    console.log(res.data)
   }
 
   async asyncData(

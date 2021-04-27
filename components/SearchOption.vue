@@ -37,10 +37,6 @@ export default class SearchOption extends Vue {
     this.genreSeeds = await fetchGenreSeeds()
   }
 
-  get reqUri(): string {
-    return this.requestUri.href
-  }
-
   @Watch('selectedGenre')
   setGenreSeedsQuery() {
     this.requestUri.searchParams.set(
