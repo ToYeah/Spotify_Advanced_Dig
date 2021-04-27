@@ -15,11 +15,7 @@
         <user-profile-card :userProfile="userProfile"> </user-profile-card>
       </v-col>
     </v-row>
-    <v-row>
-      <v-col>
-        <genre-seed-select :genreSeeds="genreSeeds"></genre-seed-select>
-      </v-col>
-    </v-row>
+    <search-option></search-option>
   </div>
 </template>
 
@@ -29,13 +25,13 @@ import { userInfoStore } from '@/store'
 import { Context } from '@nuxt/types'
 import UserProfile, { fetchUserProfile } from '@/middleware/fetchUserProfile'
 import UserProfileCard from '@/components/UserProfileCard.vue'
-import GenreSeedSelect from '@/components/genre.vue'
+import SearchOption from '@/components/SearchOption.vue'
 import { fetchGenreSeeds } from '~/middleware/fetchGenreSeeds'
 
 @Component({
   components: {
     UserProfileCard,
-    GenreSeedSelect,
+    SearchOption,
   },
 })
 export default class AuthApp extends Vue {
@@ -48,7 +44,6 @@ export default class AuthApp extends Vue {
   ): Promise<{
     userProfile: UserProfile
     authUrl: string
-    genreSeeds: string[]
   }> {
     const { $config } = context
     const url = new URL('https://accounts.spotify.com/authorize')
@@ -60,11 +55,9 @@ export default class AuthApp extends Vue {
     url.searchParams.set('state', 'state')
     const authUrlRes = url.href
     const userProfileRes = await fetchUserProfile()
-    const genreSeedsRes = await fetchGenreSeeds()
     return {
       userProfile: userProfileRes,
       authUrl: authUrlRes,
-      genreSeeds: genreSeedsRes,
     }
   }
 }
