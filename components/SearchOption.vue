@@ -28,7 +28,7 @@ import SearchOptionUnit from '@/middleware/SearchOptionUnit'
 })
 export default class SearchOption extends Vue {
   private genreSeeds: string[] = []
-  private danceability = new SearchOptionUnit(0, 140, [30, 110])
+  private danceability = new SearchOptionUnit(0, 100, [0, 100])
   private selectedGenre: string[] = []
   @Prop()
   private requestUri!: URL
@@ -45,15 +45,15 @@ export default class SearchOption extends Vue {
     )
   }
 
-  @Watch('danceability')
+  @Watch('danceability.range')
   setDanceabilityQuery() {
     this.requestUri.searchParams.set(
       'min_danceability',
-      String(this.danceability.range[0])
+      String(this.danceability.range[0] / 100)
     )
     this.requestUri.searchParams.set(
       'max_danceability',
-      String(this.danceability.range[1])
+      String(this.danceability.range[1] / 100)
     )
   }
   private receiveGenreSeed(value: string[]) {

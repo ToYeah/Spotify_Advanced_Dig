@@ -12,7 +12,16 @@
     </v-row>
     <user-profile-card :userProfile="userProfile"> </user-profile-card>
     <search-option :requestUri="requestUri"></search-option>
-    <v-btn @click="fetchRecommendedTracks">search</v-btn>
+    <v-row>
+      <v-col>
+        <v-btn @click="fetchRecommendedTracks">search</v-btn>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col>
+        <recommended-tracks :tracks="tracks"></recommended-tracks>
+      </v-col>
+    </v-row>
   </div>
 </template>
 
@@ -24,12 +33,15 @@ import UserProfile, { fetchUserProfile } from '@/middleware/fetchUserProfile'
 import UserProfileCard from '@/components/UserProfileCard.vue'
 import SearchOption from '@/components/SearchOption.vue'
 import { fetchGenreSeeds } from '~/middleware/fetchGenreSeeds'
+import RecommendedTracks from '@/components/Tracks.vue'
 import axios from 'axios'
+import Track, { fetchRecommendTracks } from '@/middleware/Track'
 
 @Component({
   components: {
     UserProfileCard,
     SearchOption,
+    RecommendedTracks,
   },
 })
 export default class AuthApp extends Vue {
@@ -41,13 +53,12 @@ export default class AuthApp extends Vue {
     return userInfoStore.getToken
   }
 
+  private tracks: Track[] = []
+
   async fetchRecommendedTracks() {
-    const res = await axios.get(this.requestUri.href, {
-      headers: {
-        Authorization: `Bearer ${userInfoStore.getToken}`,
-      },
-    })
-    console.log(res.data)
+    this.tracks.splice(0, this.tracks.length)
+    const tracksRes = await fetchRecommendTracks(this.requestUri.href)
+    this.tracks = this.tracks.concat(tracksRes)
   }
 
   async asyncData(
