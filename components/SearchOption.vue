@@ -13,10 +13,7 @@
       :unit="danceability"
     ></option-slider>
     <option-slider propertyName="Energy" :unit="energy"></option-slider>
-    <option-slider
-      propertyName="Acousticness"
-      :unit="acousticness"
-    ></option-slider>
+    <option-slider propertyName="popularity" :unit="popularity"></option-slider>
   </div>
 </template>
 
@@ -38,7 +35,7 @@ export default class SearchOption extends Vue {
   private genreSeeds: string[] = []
   private danceability = new SearchOptionUnit(0, 100, [0, 100])
   private energy = new SearchOptionUnit(0, 100, [0, 100])
-  private acousticness = new SearchOptionUnit(0, 100, [0, 100])
+  private popularity = new SearchOptionUnit(0, 100, [0, 100])
   private selectedGenre: string[] = []
   @Prop()
   private requestUri!: URL
@@ -82,15 +79,15 @@ export default class SearchOption extends Vue {
     )
   }
 
-  @Watch('acousticness.range')
-  setAcousticnessQuery() {
+  @Watch('popularity.range')
+  setPopularityQuery() {
     this.requestUri.searchParams.set(
-      'min_acousticness',
-      String(this.acousticness.range[0] / 100)
+      'min_popularity',
+      String(this.popularity.range[0])
     )
     this.requestUri.searchParams.set(
-      'max_acousticness',
-      String(this.acousticness.range[1] / 100)
+      'max_popularity',
+      String(this.popularity.range[1])
     )
   }
 }

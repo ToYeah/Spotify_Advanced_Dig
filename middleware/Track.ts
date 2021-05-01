@@ -12,7 +12,7 @@ export default class Track {
     public readonly danceability: number,
     public readonly energy: number,
     public readonly acousticness: number,
-    public readonly valence: number,
+    public readonly popularity: number,
     public readonly liveness: number,
     public readonly loudness: number
   ) {}
@@ -46,18 +46,26 @@ export const fetchRecommendTracks = async (
               },
             }
           )
+          const trackInfoRes = await axios.get(
+            `https://api.spotify.com/v1/tracks/${track.id}`,
+            {
+              headers: {
+                Authorization: `Bearer ${userInfoStore.getToken}`,
+              },
+            }
+          )
           const artistNames = track.artists.map((x) => x.name)
           const trackRes = new Track(
             artistNames.join(','),
             track.album.images[0].url,
             track.name,
             track.id,
-            featureRes.data.uri,
+            trackInfoRes.data.external_urls['spotify'],
             featureRes.data.tempo,
             featureRes.data.danceability,
             featureRes.data.energy,
             featureRes.data.acousticness,
-            featureRes.data.valence,
+            trackInfoRes.data.popularity,
             featureRes.data.liveness,
             featureRes.data.loudness
           )
