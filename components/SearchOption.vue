@@ -8,7 +8,15 @@
         ></genre-seed-select>
       </v-col>
     </v-row>
-    <option-slider :unit="danceability"></option-slider>
+    <option-slider
+      propertyName="Dancceability"
+      :unit="danceability"
+    ></option-slider>
+    <option-slider propertyName="Energy" :unit="energy"></option-slider>
+    <option-slider
+      propertyName="Acousticness"
+      :unit="acousticness"
+    ></option-slider>
   </div>
 </template>
 
@@ -28,7 +36,9 @@ import SearchOptionUnit from '@/middleware/SearchOptionUnit'
 })
 export default class SearchOption extends Vue {
   private genreSeeds: string[] = []
-  private danceability = new SearchOptionUnit(0, 100, [0, 100])
+  private danceability = new SearchOptionUnit(20, 80, [20, 80])
+  private energy = new SearchOptionUnit(20, 80, [20, 80])
+  private acousticness = new SearchOptionUnit(20, 80, [20, 80])
   private selectedGenre: string[] = []
   @Prop()
   private requestUri!: URL
@@ -58,6 +68,30 @@ export default class SearchOption extends Vue {
   }
   private receiveGenreSeed(value: string[]) {
     this.selectedGenre = value
+  }
+
+  @Watch('energy.range')
+  setEnergyQuery() {
+    this.requestUri.searchParams.set(
+      'min_energy',
+      String(this.energy.range[0] / 100)
+    )
+    this.requestUri.searchParams.set(
+      'max_energy',
+      String(this.energy.range[1] / 100)
+    )
+  }
+
+  @Watch('acousticness.range')
+  setAcousticnessQuery() {
+    this.requestUri.searchParams.set(
+      'min_acousticness',
+      String(this.acousticness.range[0] / 100)
+    )
+    this.requestUri.searchParams.set(
+      'max_acousticness',
+      String(this.acousticness.range[1] / 100)
+    )
   }
 }
 </script>

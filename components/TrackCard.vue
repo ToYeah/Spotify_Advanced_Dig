@@ -1,10 +1,10 @@
 <template>
-  <v-card width="" height="" class="py-">
+  <v-card class="py-2">
     <v-row>
-      <v-col cols="4">
-        <v-img :src="track.image" max-height="200px" contain> </v-img>
+      <v-col cols="5">
+        <v-img :src="track.image" max-height="200" contain> </v-img>
       </v-col>
-      <v-col cols="">
+      <v-col cols="7">
         <p class="font-weight-bold subtitle-1 grey--text text--darken-2">
           {{ track.name }}
         </p>

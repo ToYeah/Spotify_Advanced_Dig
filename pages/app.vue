@@ -1,24 +1,26 @@
 <template>
-  <div>
+  <div class="mx-auto" :style="{ 'max-width': '1300px', width: '100%' }">
     <v-row>
       <v-col class="text-center">
         <v-btn :href="authUrl" rounded>Login with Spotify</v-btn>
       </v-col>
     </v-row>
+
+    <!--
     <v-row>
       <v-col>
         <h3>{{ token }}</h3>
       </v-col>
     </v-row>
     <user-profile-card :userProfile="userProfile"> </user-profile-card>
-    <search-option :requestUri="requestUri"></search-option>
+    -->
+
     <v-row>
-      <v-col>
+      <v-col cols="4">
+        <search-option :requestUri="requestUri"></search-option>
         <v-btn @click="fetchRecommendedTracks">search</v-btn>
       </v-col>
-    </v-row>
-    <v-row>
-      <v-col>
+      <v-col cols="8">
         <recommended-tracks :tracks="tracks"></recommended-tracks>
       </v-col>
     </v-row>
