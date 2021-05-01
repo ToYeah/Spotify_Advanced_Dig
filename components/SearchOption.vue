@@ -36,9 +36,9 @@ import SearchOptionUnit from '@/middleware/SearchOptionUnit'
 })
 export default class SearchOption extends Vue {
   private genreSeeds: string[] = []
-  private danceability = new SearchOptionUnit(20, 80, [20, 80])
-  private energy = new SearchOptionUnit(20, 80, [20, 80])
-  private acousticness = new SearchOptionUnit(20, 80, [20, 80])
+  private danceability = new SearchOptionUnit(0, 100, [0, 100])
+  private energy = new SearchOptionUnit(0, 100, [0, 100])
+  private acousticness = new SearchOptionUnit(0, 100, [0, 100])
   private selectedGenre: string[] = []
   @Prop()
   private requestUri!: URL
