@@ -1,17 +1,20 @@
 <template>
-  <v-row class="ma-auto">
-    <v-spacer />
-    <v-col cols="6">
-      <span class="font-weight-bold grey--text text--darken-2 caption"
-        >{{ this.title }}:</span
-      >
+  <v-row>
+    <v-col>
+      <v-row>
+        <v-col class="py-1" cols="7">
+          <div class="font-weight-bold grey--text text--darken-2 caption">
+            {{ this.title }}:
+          </div>
+        </v-col>
+        <v-col cols="5" class="py-1">
+          <div class="font-weight-bold grey--text text--darken-2 caption">
+            {{ this.value }}
+          </div>
+        </v-col>
+      </v-row>
+      <v-row> </v-row>
     </v-col>
-    <v-col cols="6">
-      <span class="font-weight-bold grey--text text--darken-2 caption">{{
-        this.value
-      }}</span>
-    </v-col>
-    <v-spacer />
   </v-row>
 </template>
 

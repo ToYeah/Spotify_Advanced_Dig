@@ -1,17 +1,31 @@
 <template>
-  <v-card class="py-2">
+  <v-card class="py-2" outlined>
     <v-row>
-      <v-col cols="5">
-        <v-img :src="track.image" max-height="200" contain> </v-img>
+      <v-col cols="4">
+        <v-img :src="track.image" max-height="200px" max-width="200px" contain>
+        </v-img>
       </v-col>
-      <v-col cols="7">
-        <p class="font-weight-bold subtitle-1 grey--text text--darken-2">
-          {{ track.name }}
-        </p>
-        <p class="font-weight-bold grey--text text--darken-2">
-          {{ track.artist }}
-        </p>
+      <v-col cols="8">
         <v-row>
+          <v-col class="pb-0">
+            <div class="font-weight-bold grey--text text--darken-2 subtitle-1">
+              {{ track.name }}
+            </div>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col class="pt-1">
+            <div class="font-weight-bold grey--text text--darken-2 subtitle-2">
+              {{ track.artist }}
+            </div>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col class="pa-0">
+            <v-divider></v-divider>
+          </v-col>
+        </v-row>
+        <v-row class="py-3">
           <v-col>
             <track-property-text
               v-for="item in properties.slice(0, 3)"

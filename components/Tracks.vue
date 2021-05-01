@@ -4,7 +4,7 @@
       <v-virtual-scroll
         bench="1"
         :items="tracks"
-        height="400"
+        height="800"
         item-height="200"
       >
         <template v-slot:default="{ item }">
@@ -17,7 +17,6 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'nuxt-property-decorator'
-import UserProfile from '@/middleware/fetchUserProfile'
 import Track, { fetchRecommendTracks } from '@/middleware/Track'
 import TrackCard from '@/components/TrackCard.vue'
 
