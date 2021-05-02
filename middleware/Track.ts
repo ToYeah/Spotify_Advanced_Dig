@@ -14,7 +14,7 @@ export default class Track {
     public readonly valence: number,
     public readonly popularity: number,
     public readonly liveness: number,
-    public readonly loudness: number
+    public readonly instrumentalness: number
   ) {}
 }
 
@@ -67,7 +67,7 @@ export const fetchRecommendTracks = async (
             featureRes.data.acousticness,
             trackInfoRes.data.popularity,
             featureRes.data.liveness,
-            featureRes.data.loudness
+            featureRes.data.instrumentalness
           )
           return trackRes
         }
