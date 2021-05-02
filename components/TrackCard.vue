@@ -1,5 +1,5 @@
 <template>
-  <v-card class="py-2" outlined>
+  <v-card class="py-2" outlined height="200">
     <v-row>
       <v-col cols="4">
         <v-img :src="track.image" max-height="200px" max-width="200px" contain>
@@ -8,21 +8,27 @@
       <v-col cols="8">
         <v-row>
           <v-col class="pb-0">
-            <div class="font-weight-bold grey--text text--darken-2 subtitle-1">
+            <div
+              class="font-weight-bold grey--text text--darken-2 subtitle-1"
+              :class="$style.CardText"
+            >
               {{ track.name }}
             </div>
           </v-col>
         </v-row>
         <v-row>
           <v-col class="pt-1">
-            <div class="font-weight-bold grey--text text--darken-2 subtitle-2">
+            <div
+              class="font-weight-bold grey--text text--darken-2 subtitle-2"
+              :class="$style.CardText"
+            >
               {{ track.artist }}
             </div>
           </v-col>
         </v-row>
         <v-row>
           <v-col class="pa-0">
-            <v-divider></v-divider>
+            <v-divider class="mx-4"></v-divider>
           </v-col>
         </v-row>
         <v-row class="py-3">
@@ -72,3 +78,7 @@ export default class TrackCard extends Vue {
   private track!: Track
 }
 </script>
+
+<style module>
+@import '@/assets/sass/CardText.scss';
+</style>

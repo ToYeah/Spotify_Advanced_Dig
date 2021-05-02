@@ -3,12 +3,18 @@
     <v-col>
       <v-row>
         <v-col class="py-1" cols="7">
-          <div class="font-weight-bold grey--text text--darken-2 caption">
+          <div
+            class="font-weight-bold grey--text text--darken-2 caption"
+            :class="$style.CardText"
+          >
             {{ this.title }}:
           </div>
         </v-col>
         <v-col cols="5" class="py-1">
-          <div class="font-weight-bold grey--text text--darken-2 caption">
+          <div
+            class="font-weight-bold grey--text text--darken-2 caption"
+            :class="$style.CardText"
+          >
             {{ this.value }}
           </div>
         </v-col>
@@ -28,3 +34,7 @@ export default class TrackPropertyText extends Vue {
   private value!: string
 }
 </script>
+
+<style module>
+@import '@/assets/sass/CardText.scss';
+</style>
