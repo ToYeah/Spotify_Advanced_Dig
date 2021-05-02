@@ -11,7 +11,7 @@ export default class Track {
     public readonly tempo: number,
     public readonly danceability: number,
     public readonly energy: number,
-    public readonly acousticness: number,
+    public readonly valence: number,
     public readonly popularity: number,
     public readonly liveness: number,
     public readonly loudness: number
@@ -62,7 +62,7 @@ export const fetchRecommendTracks = async (
             track.id,
             trackInfoRes.data.external_urls['spotify'],
             featureRes.data.tempo,
-            featureRes.data.danceability,
+            featureRes.data.valence,
             featureRes.data.energy,
             featureRes.data.acousticness,
             trackInfoRes.data.popularity,
