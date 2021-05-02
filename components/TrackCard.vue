@@ -68,7 +68,7 @@ export default class TrackCard extends Vue {
     res.push({ title: 'Danceability', value: String(this.track.danceability) })
     res.push({ title: 'Energy', value: String(this.track.energy) })
     res.push({ title: 'Tempo', value: String(this.track.tempo) })
-    res.push({ title: 'valence', value: String(this.track.valence) })
+    res.push({ title: 'Valence', value: String(this.track.valence) })
     res.push({ title: 'Loudness', value: String(this.track.loudness) })
     res.push({ title: 'Popularity', value: String(this.track.popularity) })
     return res
