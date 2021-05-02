@@ -17,7 +17,7 @@
 
     <v-row>
       <v-col cols="4">
-        <search-option :requestUri="requestUri"></search-option>
+        <search-option ref="searchOption"></search-option>
         <v-btn @click="fetchRecommendedTracks">search</v-btn>
       </v-col>
       <v-col cols="8">
@@ -26,9 +26,9 @@
     </v-row>
     <v-row>
       <v-col>
-        <no-ssr>
+        <client-only>
           <spotify-player></spotify-player>
-        </no-ssr>
+        </client-only>
       </v-col>
     </v-row>
   </div>
@@ -56,19 +56,19 @@ import SpotifyPlayer from '@/components/Player.vue'
   },
 })
 export default class AuthApp extends Vue {
-  private requestUri: URL = new URL(
-    'https://api.spotify.com/v1/recommendations'
-  )
-
   get token(): string {
     return userInfoStore.getToken
   }
 
   private tracks: Track[] = []
 
+  $refs!: {
+    searchOption: SearchOption
+  }
   async fetchRecommendedTracks() {
     this.tracks.splice(0, this.tracks.length)
-    const tracksRes = await fetchRecommendTracks(this.requestUri.href)
+    const requestUri = this.$refs.searchOption.createSearchUri()
+    const tracksRes = await fetchRecommendTracks(requestUri)
     this.tracks = this.tracks.concat(tracksRes)
   }
 

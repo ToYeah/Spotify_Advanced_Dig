@@ -17,7 +17,7 @@
       <v-col>
         <v-col>
           <v-text-field
-            v-model="tempo.value"
+            v-model="tempoValue"
             label="Target Tempo"
           ></v-text-field>
         </v-col>
@@ -51,91 +51,50 @@ export default class SearchOption extends Vue {
     100,
   ])
 
-  private tempo = { name: 'tempo', value: '' }
-
+  private tempoValue = ''
   private selectedGenre: string[] = []
+  private isSearchableGenre = true
+  private isSearchabkeTempo = true
 
-  @Prop()
-  private requestUri!: URL
+  get isSearchableQuery() {
+    const tempoReg = new RegExp(/^[0-9]*$/)
+    this.isSearchableGenre = this.genreSeeds.length !== 0
+    this.isSearchabkeTempo = tempoReg.test(this.tempoValue)
+    return this.isSearchableGenre && this.isSearchabkeTempo
+  }
 
   private receiveGenreSeed(value: string[]) {
     this.selectedGenre = value
   }
+
   async created() {
     this.genreSeeds = await fetchGenreSeeds()
   }
 
-  @Watch('selectedGenre')
-  setGenreSeedsQuery() {
-    this.requestUri.searchParams.set(
-      'seed_genres',
-      this.selectedGenre.join(',')
-    )
+  private setQueryParam(uri: URL, unit: SearchOptionUnit) {
+    const max = unit.name === 'Popularity' ? unit.range[1] : unit.range[1] / 100
+    const min = unit.name === 'Popularity' ? unit.range[0] : unit.range[0] / 100
+    const name = `${unit.name.slice(0, 1).toLowerCase()}${unit.name.slice(1)}`
+    uri.searchParams.set(`min_${name}`, String(min))
+    uri.searchParams.set(`max_${name}`, String(max))
   }
 
-  @Watch('tempo.value')
-  setTargetTempo() {
-    this.requestUri.searchParams.set('target_tempo', String(this.tempo.value))
-  }
+  public createSearchUri(): string {
+    const requestUri = new URL('https://api.spotify.com/v1/recommendations')
 
-  @Watch('danceability.range')
-  setDanceabilityQuery() {
-    this.requestUri.searchParams.set(
-      'min_danceability',
-      String(this.danceability.range[0] / 100)
-    )
-    this.requestUri.searchParams.set(
-      'max_danceability',
-      String(this.danceability.range[1] / 100)
-    )
-  }
-
-  @Watch('energy.range')
-  setEnergyQuery() {
-    this.requestUri.searchParams.set(
-      'min_energy',
-      String(this.energy.range[0] / 100)
-    )
-    this.requestUri.searchParams.set(
-      'max_energy',
-      String(this.energy.range[1] / 100)
-    )
-  }
-
-  @Watch('popularity.range')
-  setPopularityQuery() {
-    this.requestUri.searchParams.set(
-      'min_popularity',
-      String(this.popularity.range[0])
-    )
-    this.requestUri.searchParams.set(
-      'max_popularity',
-      String(this.popularity.range[1])
-    )
-  }
-
-  @Watch('valence.range')
-  setValenceQuery() {
-    this.requestUri.searchParams.set(
-      'min_valence',
-      String(this.valence.range[0] / 100)
-    )
-    this.requestUri.searchParams.set(
-      'max_valence',
-      String(this.valence.range[1] / 100)
-    )
-  }
-
-  @Watch('instrumentalness.range')
-  setInstrumentalnessQuery() {
-    this.requestUri.searchParams.set(
-      'min_instrumentalness',
-      String(this.instrumentalness.range[0] / 100)
-    )
-    this.requestUri.searchParams.set(
-      'max_instrumentalness',
-      String(this.instrumentalness.range[1] / 100)
-    )
+    if (!this.isSearchableQuery) {
+      return ''
+    }
+    requestUri.searchParams.set('seed_genres', this.selectedGenre.join(','))
+    if (this.tempoValue !== '') {
+      requestUri.searchParams.set('target_tempo', String(this.tempoValue))
+    }
+    this.setQueryParam(requestUri, this.danceability)
+    this.setQueryParam(requestUri, this.energy)
+    this.setQueryParam(requestUri, this.popularity)
+    this.setQueryParam(requestUri, this.valence)
+    this.setQueryParam(requestUri, this.instrumentalness)
+    return requestUri.href
   }
 }
 </script>
