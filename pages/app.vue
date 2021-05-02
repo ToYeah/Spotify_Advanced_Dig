@@ -5,15 +5,15 @@
         <v-btn :href="authUrl" rounded>Login with Spotify</v-btn>
       </v-col>
     </v-row>
-
     <!--
+
     <v-row>
       <v-col>
         <h3>{{ token }}</h3>
       </v-col>
     </v-row>
     <user-profile-card :userProfile="userProfile"> </user-profile-card>
-    -->
+-->
 
     <v-row>
       <v-col cols="4">
@@ -22,6 +22,13 @@
       </v-col>
       <v-col cols="8">
         <recommended-tracks :tracks="tracks"></recommended-tracks>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col>
+        <no-ssr>
+          <spotify-player></spotify-player>
+        </no-ssr>
       </v-col>
     </v-row>
   </div>
@@ -38,12 +45,14 @@ import { fetchGenreSeeds } from '~/middleware/fetchGenreSeeds'
 import RecommendedTracks from '@/components/Tracks.vue'
 import axios from 'axios'
 import Track, { fetchRecommendTracks } from '@/middleware/Track'
+import SpotifyPlayer from '@/components/Player.vue'
 
 @Component({
   components: {
     UserProfileCard,
     SearchOption,
     RecommendedTracks,
+    SpotifyPlayer,
   },
 })
 export default class AuthApp extends Vue {
@@ -71,7 +80,11 @@ export default class AuthApp extends Vue {
   }> {
     const { $config } = context
     const url = new URL('https://accounts.spotify.com/authorize')
-    const scopes: string[] = ['user-read-private', 'user-read-email']
+    const scopes: string[] = [
+      'streaming',
+      'user-read-email',
+      'user-read-private',
+    ]
     url.searchParams.set('response_type', 'code')
     url.searchParams.set('scope', scopes.join(' '))
     url.searchParams.set('redirect_uri', $config.redirectUri)

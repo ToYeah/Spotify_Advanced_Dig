@@ -22,7 +22,8 @@
   "devDependencies": {
     "@nuxt/typescript-build": "^2.1.0",
     "@nuxtjs/vuetify": "^1.11.3",
-    "eslint-config-prettier": "^8.1.0",
+    "@types/spotify-web-playback-sdk": "^0.1.8",
+    "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.3.1",
     "prettier": "^2.2.1",
     "vuex-module-decorators": "^1.0.1"

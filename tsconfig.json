@@ -25,7 +25,8 @@
     },
     "types": [
       "@types/node",
-      "@nuxt/types"
+      "@nuxt/types",
+      "@types/spotify-web-playback-sdk/"
     ]
   },
   "exclude": [
