@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-row>
-      <v-col> {{ propertyName }}</v-col>
+      <v-col> {{ unit.name }}</v-col>
     </v-row>
     <v-row>
       <v-col>

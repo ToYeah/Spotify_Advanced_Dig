@@ -8,12 +8,9 @@
         ></genre-seed-select>
       </v-col>
     </v-row>
-    <option-slider
-      propertyName="Dancceability"
-      :unit="danceability"
-    ></option-slider>
-    <option-slider propertyName="Energy" :unit="energy"></option-slider>
-    <option-slider propertyName="popularity" :unit="popularity"></option-slider>
+    <option-slider :unit="danceability"></option-slider>
+    <option-slider :unit="energy"></option-slider>
+    <option-slider :unit="popularity"></option-slider>
   </div>
 </template>
 
@@ -33,9 +30,9 @@ import SearchOptionUnit from '@/middleware/SearchOptionUnit'
 })
 export default class SearchOption extends Vue {
   private genreSeeds: string[] = []
-  private danceability = new SearchOptionUnit(0, 100, [0, 100])
-  private energy = new SearchOptionUnit(0, 100, [0, 100])
-  private popularity = new SearchOptionUnit(0, 100, [0, 100])
+  private danceability = new SearchOptionUnit('Danceability', 0, 100, [0, 100])
+  private energy = new SearchOptionUnit('Energy', 0, 100, [0, 100])
+  private popularity = new SearchOptionUnit('Popularity', 0, 100, [0, 100])
   private selectedGenre: string[] = []
   @Prop()
   private requestUri!: URL
