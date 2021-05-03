@@ -2,7 +2,9 @@
   <div class="mx-auto" :style="{ 'max-width': '1300px', width: '100%' }">
     <v-row>
       <v-col class="text-center">
-        <v-btn :href="authUrl" rounded>Login with Spotify</v-btn>
+        <v-btn :href="authUrl" rounded v-if="!isLogined"
+          >Login with Spotify</v-btn
+        >
       </v-col>
     </v-row>
     <!--
@@ -75,7 +77,12 @@ export default class AuthApp extends Vue {
     return userInfoStore.getToken
   }
 
+  get isLogined(): boolean {
+    return userInfoStore.getloginStatus
+  }
+
   private tracks: Track[] = []
+
   private isFetching = false
 
   $refs!: {
