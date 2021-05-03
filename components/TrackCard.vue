@@ -29,8 +29,8 @@
               </v-col>
             </v-row>
           </v-col>
-          <v-col cols="2" class="px-0 pt-5">
-            <v-btn color="primary" fab x-small dark outlined>
+          <v-col cols="2" class="px-0 pt-4">
+            <v-btn color="primary" fab x-small dark outlined class="mt-1">
               <v-icon>mdi-play</v-icon>
             </v-btn>
             <v-btn
@@ -42,6 +42,7 @@
               :href="track.url"
               target="_blank"
               rel="noopener noreferrer"
+              class="mt-1"
             >
               <v-icon>mdi-dots-horizontal</v-icon>
             </v-btn>
