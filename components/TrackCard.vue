@@ -7,23 +7,44 @@
       </v-col>
       <v-col cols="8">
         <v-row>
-          <v-col class="pb-0">
-            <div
-              class="font-weight-bold grey--text text--darken-2 subtitle-1"
-              :class="$style.CardText"
-            >
-              {{ track.name }}
-            </div>
+          <v-col cols="10">
+            <v-row>
+              <v-col class="pb-0">
+                <div
+                  class="font-weight-bold grey--text text--darken-2 subtitle-1"
+                  :class="$style.CardText"
+                >
+                  {{ track.name }}
+                </div>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="pt-1">
+                <div
+                  class="font-weight-bold grey--text text--darken-2 subtitle-2"
+                  :class="$style.CardText"
+                >
+                  {{ track.artist }}
+                </div>
+              </v-col>
+            </v-row>
           </v-col>
-        </v-row>
-        <v-row>
-          <v-col class="pt-1">
-            <div
-              class="font-weight-bold grey--text text--darken-2 subtitle-2"
-              :class="$style.CardText"
+          <v-col cols="2" class="px-0 pt-5">
+            <v-btn color="primary" fab x-small dark outlined>
+              <v-icon>mdi-play</v-icon>
+            </v-btn>
+            <v-btn
+              color="primary"
+              fab
+              x-small
+              dark
+              outlined
+              :href="track.url"
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              {{ track.artist }}
-            </div>
+              <v-icon>mdi-dots-horizontal</v-icon>
+            </v-btn>
           </v-col>
         </v-row>
         <v-row>
