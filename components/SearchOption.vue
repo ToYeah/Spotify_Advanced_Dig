@@ -58,7 +58,7 @@ export default class SearchOption extends Vue {
 
   get isSearchableQuery() {
     const tempoReg = new RegExp(/^[0-9]*$/)
-    this.isSearchableGenre = this.genreSeeds.length !== 0
+    this.isSearchableGenre = this.selectedGenre.length !== 0
     this.isSearchabkeTempo = tempoReg.test(this.tempoValue)
     return this.isSearchableGenre && this.isSearchabkeTempo
   }

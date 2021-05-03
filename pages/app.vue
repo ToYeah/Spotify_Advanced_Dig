@@ -41,9 +41,7 @@ import { Context } from '@nuxt/types'
 import UserProfile, { fetchUserProfile } from '@/middleware/fetchUserProfile'
 import UserProfileCard from '@/components/UserProfileCard.vue'
 import SearchOption from '@/components/SearchOption.vue'
-import { fetchGenreSeeds } from '~/middleware/fetchGenreSeeds'
 import RecommendedTracks from '@/components/Tracks.vue'
-import axios from 'axios'
 import Track, { fetchRecommendTracks } from '@/middleware/Track'
 import SpotifyPlayer from '@/components/Player.vue'
 
@@ -61,15 +59,21 @@ export default class AuthApp extends Vue {
   }
 
   private tracks: Track[] = []
+  private isFetching = false
 
   $refs!: {
     searchOption: SearchOption
   }
   async fetchRecommendedTracks() {
+    if (this.isFetching === true) return
+    this.isFetching = true
     this.tracks.splice(0, this.tracks.length)
     const requestUri = this.$refs.searchOption.createSearchUri()
-    const tracksRes = await fetchRecommendTracks(requestUri)
-    this.tracks = this.tracks.concat(tracksRes)
+    if (requestUri !== '') {
+      const tracksRes = await fetchRecommendTracks(requestUri)
+      this.tracks = this.tracks.concat(tracksRes)
+    }
+    this.isFetching = false
   }
 
   async asyncData(
