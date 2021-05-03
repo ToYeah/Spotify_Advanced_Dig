@@ -62,9 +62,9 @@ export const fetchRecommendTracks = async (
             track.id,
             trackInfoRes.data.external_urls['spotify'],
             featureRes.data.tempo,
-            featureRes.data.valence,
+            featureRes.data.danceability,
             featureRes.data.energy,
-            featureRes.data.acousticness,
+            featureRes.data.valence,
             trackInfoRes.data.popularity,
             featureRes.data.liveness,
             featureRes.data.instrumentalness
