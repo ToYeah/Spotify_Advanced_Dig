@@ -2,7 +2,7 @@
   <v-card class="py-2" outlined height="200">
     <v-row>
       <v-col cols="4">
-        <v-img :src="track.image" max-height="200px" max-width="200px" contain>
+        <v-img :src="track.image" max-height="176px" max-width="200px" contain>
         </v-img>
       </v-col>
       <v-col cols="8">
