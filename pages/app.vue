@@ -20,8 +20,25 @@
         <search-option ref="searchOption"></search-option>
         <v-btn @click="fetchRecommendedTracks">search</v-btn>
       </v-col>
-      <v-col cols="8">
-        <recommended-tracks :tracks="tracks"></recommended-tracks>
+      <v-col
+        cols="8"
+        :style="{
+          display: 'flex',
+          'justify-content': 'center',
+          'align-items': 'center',
+        }"
+      >
+        <v-progress-circular
+          :size="70"
+          :width="7"
+          color="blue"
+          indeterminate
+          v-if="isFetching"
+        ></v-progress-circular>
+        <recommended-tracks
+          :tracks="tracks"
+          v-if="!isFetching"
+        ></recommended-tracks>
       </v-col>
     </v-row>
     <v-row>
