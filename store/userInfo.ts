@@ -9,6 +9,7 @@ export default class UserInfo extends VuexModule {
   private token: string = ''
   private refresh_token: string = ''
   private loginStatus: boolean = false
+  private deviceId: string = ''
 
   public get getToken() {
     return this.token
@@ -20,6 +21,10 @@ export default class UserInfo extends VuexModule {
 
   public get getloginStatus() {
     return this.loginStatus
+  }
+
+  public get getDeviceId() {
+    return this.deviceId
   }
 
   @Mutation
@@ -35,5 +40,10 @@ export default class UserInfo extends VuexModule {
   @Mutation
   public setLoginStatus(value: boolean) {
     this.loginStatus = value
+  }
+
+  @Mutation
+  public setDeviceId(value: string) {
+    this.deviceId = value
   }
 }

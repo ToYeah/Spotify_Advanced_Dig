@@ -46,7 +46,8 @@ export default class SpotifyPlayer extends Vue {
 
         // Ready
         player.addListener('ready', ({ device_id }) => {
-          console.log('Ready with Device ID', device_id)
+          console.log('Device Ready')
+          userInfoStore.setDeviceId(device_id)
         })
 
         // Not Ready
