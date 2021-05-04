@@ -2,7 +2,7 @@
   <div>
     <v-row>
       <v-col class="pb-1">
-        <div class="grey--text text--darken-2 subtitle-1">
+        <div class="grey--text text--darken-1 subtitle-1">
           {{ unit.name }}
         </div>
       </v-col>
