@@ -120,6 +120,7 @@ export default class TrackCard extends Vue {
         Authorization: `Bearer ${userInfoStore.getToken}`,
       },
     })
+    userInfoStore.setNowPlaying(this.track)
   }
 
   @Prop()

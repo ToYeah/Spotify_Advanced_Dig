@@ -1,13 +1,40 @@
 <template>
-  <div>hello</div>
+  <v-row>
+    <v-col>
+      <v-card width="200px">
+        <v-row>
+          <v-col cols="4">
+            <v-img max-height="70" contain :src="nowPlayingStore.image">
+            </v-img>
+          </v-col>
+          <v-col>
+            <v-btn color="primary" fab x-small dark outlined>
+              <v-icon>mdi-pause</v-icon>
+            </v-btn>
+          </v-col>
+        </v-row>
+      </v-card>
+    </v-col>
+  </v-row>
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'nuxt-property-decorator'
+import { Vue, Component, Watch } from 'nuxt-property-decorator'
 import { userInfoStore } from '@/store'
+import Track from '~/middleware/Track'
+import axios from 'axios'
 
 @Component
 export default class SpotifyPlayer extends Vue {
+  get nowPlayingStore(): Track {
+    return userInfoStore.getNowPlaying
+  }
+
+  @Watch('nowPlayingStore')
+  updateNowPlaying() {
+    console.log('hello')
+  }
+
   mounted() {
     let playerSdkTag = document.createElement('script')
     playerSdkTag.setAttribute('src', 'https://sdk.scdn.co/spotify-player.js')
