@@ -23,6 +23,7 @@ export default class SpotifyPlayer extends Vue {
           getOAuthToken: (cb) => {
             cb(token)
           },
+          volume: 0.15,
         })
 
         // Error handling
