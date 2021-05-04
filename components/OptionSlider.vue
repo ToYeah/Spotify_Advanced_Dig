@@ -1,10 +1,14 @@
 <template>
   <div>
     <v-row>
-      <v-col> {{ unit.name }}</v-col>
+      <v-col class="pb-1">
+        <div class="font-weight-bold grey--text text--darken-2 subtitle-1">
+          {{ unit.name }}
+        </div>
+      </v-col>
     </v-row>
     <v-row>
-      <v-col>
+      <v-col class="pt-1 px-4">
         <v-range-slider
           v-model="unit.range"
           :max="unit.max"
