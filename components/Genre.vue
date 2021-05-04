@@ -3,9 +3,13 @@
     v-model="selectedGenre"
     :items="genreSeeds"
     :menu-props="{ maxHeight: '400' }"
-    label="Select"
+    label="GenreSeed"
     multiple
     hint="Pick your favorite genres"
+    clearable="true"
+    flat
+    class="pa-0 noneUnderLine"
+    single-line
   ></v-select>
 </template>
 
@@ -28,3 +32,7 @@ export default class GenreSeedSelect extends Vue {
   private genreSeeds!: string[]
 }
 </script>
+
+<style scoped>
+@import '@/assets/sass/UnderLine.scss';
+</style>

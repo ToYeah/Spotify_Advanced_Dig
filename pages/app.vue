@@ -96,6 +96,7 @@ export default class AuthApp extends Vue {
   $refs!: {
     searchOption: SearchOption
   }
+
   async fetchRecommendedTracks() {
     if (this.isFetching === true) return
     this.isFetching = true

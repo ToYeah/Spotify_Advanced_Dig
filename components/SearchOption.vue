@@ -1,11 +1,32 @@
 <template>
   <div>
     <v-row>
-      <v-col>
+      <v-col class="pb-0 font-weight-bold grey--text text--darken-2">
+        Required item
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col class="py-1">
+        <v-divider class="mr-1"></v-divider>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col class="py-1">
         <genre-seed-select
+          class="py-0"
           @selectGenre="receiveGenreSeed"
           :genreSeeds="genreSeeds"
         ></genre-seed-select>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col class="pb-0 font-weight-bold grey--text text--darken-2">
+        Optional item
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col class="pt-1 pb-3">
+        <v-divider class="mr-1"></v-divider>
       </v-col>
     </v-row>
     <option-slider :unit="danceability"></option-slider>
@@ -15,10 +36,13 @@
     <option-slider :unit="instrumentalness"></option-slider>
     <v-row>
       <v-col>
-        <v-col>
+        <v-col class="pt-0 px-0">
           <v-text-field
+            class="pa-0 noneUnderLine"
             v-model="tempoValue"
             label="Target Tempo"
+            type="Number"
+            clearable="true"
           ></v-text-field>
         </v-col>
       </v-col>
@@ -29,7 +53,7 @@
 <script lang="ts">
 import { Vue, Component, Prop, Watch } from 'nuxt-property-decorator'
 import { userInfoStore } from '@/store'
-import GenreSeedSelect from '@/components/genre.vue'
+import GenreSeedSelect from '@/components/Genre.vue'
 import OptionSlider from '@/components/OptionSlider.vue'
 import { fetchGenreSeeds } from '@/middleware/fetchGenreSeeds'
 import SearchOptionUnit from '@/middleware/SearchOptionUnit'
@@ -98,3 +122,7 @@ export default class SearchOption extends Vue {
   }
 }
 </script>
+
+<style scoped>
+@import '@/assets/sass/UnderLine.scss';
+</style>
