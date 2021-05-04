@@ -30,7 +30,15 @@
             </v-row>
           </v-col>
           <v-col cols="2" class="px-0 pt-4">
-            <v-btn color="primary" fab x-small dark outlined class="mt-1">
+            <v-btn
+              color="primary"
+              fab
+              x-small
+              dark
+              outlined
+              class="mt-1"
+              @click="playBackMusic"
+            >
               <v-icon>mdi-play</v-icon>
             </v-btn>
             <v-btn
@@ -82,6 +90,8 @@
 import { Vue, Component, Prop } from 'nuxt-property-decorator'
 import Track from '~/middleware/Track'
 import TrackPropertyText from '@/components/TrackPropertyText.vue'
+import axios from 'axios'
+import { userInfoStore } from '~/store'
 
 @Component({ components: { TrackPropertyText } })
 export default class TrackCard extends Vue {
@@ -97,6 +107,19 @@ export default class TrackCard extends Vue {
     })
     res.push({ title: 'Popularity', value: String(this.track.popularity) })
     return res
+  }
+
+  private async playBackMusic() {
+    const requestUri = new URL('https://api.spotify.com/v1/me/player/play')
+    requestUri.searchParams.set('device_id', userInfoStore.getDeviceId)
+    const body: { uris: string[] } = {
+      uris: [`spotify:track:${this.track.id}`],
+    }
+    const res = await axios.put(requestUri.href, body, {
+      headers: {
+        Authorization: `Bearer ${userInfoStore.getToken}`,
+      },
+    })
   }
 
   @Prop()
