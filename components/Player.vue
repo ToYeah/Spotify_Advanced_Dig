@@ -7,18 +7,25 @@
             <v-img max-height="70" contain :src="nowPlayingStore.image">
             </v-img>
           </v-col>
-          <v-col>
-            <v-btn
-              color="primary"
-              fab
-              x-small
-              dark
-              outlined
-              @click="togglePlay"
-            >
-              <v-icon v-show="!isPlaying">mdi-play</v-icon>
-              <v-icon v-show="isPlaying">mdi-pause</v-icon>
-            </v-btn>
+          <v-col cols="8">
+            <v-row>
+              <v-col>
+                <v-btn
+                  color="primary"
+                  fab
+                  x-small
+                  dark
+                  outlined
+                  @click="togglePlay"
+                >
+                  <v-icon v-show="!isPlaying">mdi-play</v-icon>
+                  <v-icon v-show="isPlaying">mdi-pause</v-icon>
+                </v-btn>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col> <seek-bar ref="seekBar"></seek-bar></v-col>
+            </v-row>
           </v-col>
         </v-row>
       </v-card>
@@ -31,8 +38,9 @@ import { Vue, Component, Watch } from 'nuxt-property-decorator'
 import { userInfoStore } from '@/store'
 import Track from '~/middleware/Track'
 import axios from 'axios'
+import SeekBar from '@/components/SeekBar.vue'
 
-@Component
+@Component({ components: { SeekBar } })
 export default class SpotifyPlayer extends Vue {
   private isPlaying: boolean = false
 
@@ -44,9 +52,12 @@ export default class SpotifyPlayer extends Vue {
     return userInfoStore.getPlayer
   }
 
+  $refs!: {
+    seekBar: SeekBar
+  }
+
   private async togglePlay() {
     const stateRes = await this.player?.getCurrentState()
-    console.log(stateRes)
     if (stateRes === null || stateRes?.paused === undefined) return
     await this.player?.togglePlay()
     this.isPlaying = stateRes?.paused
@@ -55,6 +66,15 @@ export default class SpotifyPlayer extends Vue {
   private async updateIsPlaying() {
     const stateRes = await this.player?.getCurrentState()
     this.isPlaying = !stateRes?.paused
+  }
+
+  @Watch('isPlaying')
+  updateSeekBar() {
+    if (this.isPlaying) {
+      this.$refs.seekBar.startMonitoring()
+    } else {
+      this.$refs.seekBar.finishMonitoring()
+    }
   }
 
   @Watch('nowPlayingStore')
