@@ -47,7 +47,7 @@
               x-small
               dark
               outlined
-              :href="track.url"
+              :href="trackUri"
               target="_blank"
               rel="noopener noreferrer"
               class="mt-1"
@@ -124,6 +124,10 @@ export default class TrackCard extends Vue {
 
   @Prop()
   private track!: Track
+
+  get trackUri(): string {
+    return `https://open.spotify.com/track/${this.track.id}`
+  }
 }
 </script>
 
