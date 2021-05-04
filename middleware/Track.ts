@@ -17,6 +17,8 @@ export default class Track {
   ) {}
 }
 
+export const EmptyTrack: Track = new Track('', '', '', '', 0, 0, 0, 0, 0, 0, 0)
+
 export const fetchRecommendTracks = async (
   requestUri: string
 ): Promise<Track[]> => {

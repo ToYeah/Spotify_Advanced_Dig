@@ -1,4 +1,5 @@
 import { Module, VuexModule, Mutation } from 'vuex-module-decorators'
+import Track, { EmptyTrack } from '@/middleware/Track'
 
 @Module({
   name: 'userInfo',
@@ -10,7 +11,7 @@ export default class UserInfo extends VuexModule {
   private refresh_token: string = ''
   private loginStatus: boolean = false
   private deviceId: string = ''
-
+  private nowPlaying: Track = EmptyTrack
   public get getToken() {
     return this.token
   }
@@ -25,6 +26,10 @@ export default class UserInfo extends VuexModule {
 
   public get getDeviceId() {
     return this.deviceId
+  }
+
+  public get getNowPlaying() {
+    return this.nowPlaying
   }
 
   @Mutation
@@ -45,5 +50,10 @@ export default class UserInfo extends VuexModule {
   @Mutation
   public setDeviceId(value: string) {
     this.deviceId = value
+  }
+
+  @Mutation
+  public setNowPlaying(value: Track) {
+    this.nowPlaying = value
   }
 }
