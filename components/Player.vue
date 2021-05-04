@@ -48,23 +48,42 @@
                     </v-btn>
                   </v-col>
                   <v-col cols="4" class="px-0 pt-6 pb-0">
-                    <v-btn
-                      color="primary"
-                      fab
-                      x-small
-                      dark
-                      outlined
-                      @click="togglePlay"
-                    >
-                      <v-icon>mdi-volume-high</v-icon>
-                    </v-btn>
+                    <div>
+                      <v-menu top offset-y="true">
+                        <template v-slot:activator="{ on, attrs }">
+                          <v-btn
+                            color="primary"
+                            fab
+                            x-small
+                            dark
+                            outlined
+                            v-bind="attrs"
+                            v-on="on"
+                          >
+                            <v-icon>mdi-volume-high</v-icon>
+                          </v-btn>
+                        </template>
+                        <v-card>
+                          <v-slider
+                            class="pa-1"
+                            @change="setPlayerVolume"
+                            vertical
+                            max="100"
+                            v-model="playerVolume"
+                          ></v-slider>
+                        </v-card>
+                      </v-menu>
+                    </div>
                   </v-col>
                   <v-spacer></v-spacer>
                 </v-row>
               </v-col>
             </v-row>
             <v-row>
-              <v-col> <seek-bar ref="seekBar"></seek-bar></v-col>
+              <v-col cols="10" class="pb-2 pt-1">
+                <seek-bar ref="seekBar"></seek-bar>
+              </v-col>
+              <v-spacer></v-spacer>
             </v-row>
           </v-col>
         </v-row>
@@ -83,6 +102,7 @@ import SeekBar from '@/components/SeekBar.vue'
 @Component({ components: { SeekBar } })
 export default class SpotifyPlayer extends Vue {
   private isPlaying: boolean = false
+  private playerVolume: number = 15
 
   get nowPlayingTrack(): Track {
     return userInfoStore.getNowPlaying
@@ -94,6 +114,10 @@ export default class SpotifyPlayer extends Vue {
 
   $refs!: {
     seekBar: SeekBar
+  }
+
+  private async setPlayerVolume() {
+    await this.player?.setVolume(this.playerVolume / 100)
   }
 
   private async togglePlay() {
