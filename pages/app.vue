@@ -112,6 +112,7 @@ export default class AuthApp extends Vue {
       'streaming',
       'user-read-email',
       'user-read-private',
+      'user-modify-playback-state',
     ]
     url.searchParams.set('response_type', 'code')
     url.searchParams.set('scope', scopes.join(' '))

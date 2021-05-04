@@ -8,8 +8,16 @@
             </v-img>
           </v-col>
           <v-col>
-            <v-btn color="primary" fab x-small dark outlined>
-              <v-icon>mdi-pause</v-icon>
+            <v-btn
+              color="primary"
+              fab
+              x-small
+              dark
+              outlined
+              @click="togglePlay"
+            >
+              <v-icon v-show="!isPlaying">mdi-play</v-icon>
+              <v-icon v-show="isPlaying">mdi-pause</v-icon>
             </v-btn>
           </v-col>
         </v-row>
@@ -26,27 +34,44 @@ import axios from 'axios'
 
 @Component
 export default class SpotifyPlayer extends Vue {
+  private isPlaying: boolean = false
+
   get nowPlayingStore(): Track {
     return userInfoStore.getNowPlaying
   }
 
+  get player() {
+    return userInfoStore.getPlayer
+  }
+
+  private async togglePlay() {
+    const stateRes = await this.player?.getCurrentState()
+    console.log(stateRes)
+    if (stateRes === null || stateRes?.paused === undefined) return
+    await this.player?.togglePlay()
+    this.isPlaying = stateRes?.paused
+  }
+
+  private async updateIsPlaying() {
+    const stateRes = await this.player?.getCurrentState()
+    this.isPlaying = !stateRes?.paused
+  }
+
   @Watch('nowPlayingStore')
-  updateNowPlaying() {
-    console.log('hello')
+  async updateNowPlaying() {
+    this.updateIsPlaying()
   }
 
   mounted() {
     let playerSdkTag = document.createElement('script')
     playerSdkTag.setAttribute('src', 'https://sdk.scdn.co/spotify-player.js')
     document.head.appendChild(playerSdkTag)
-  }
 
-  created() {
     if (process.browser) {
       window.onSpotifyWebPlaybackSDKReady = () => {
         const token = `${userInfoStore.getToken}`
         const player = new Spotify.Player({
-          name: 'Web Playback SDK Quick Start Player',
+          name: 'SpotifyOptionSearch',
           getOAuthToken: (cb) => {
             cb(token)
           },
@@ -85,6 +110,8 @@ export default class SpotifyPlayer extends Vue {
 
         // Connect to the player!
         player.connect()
+
+        userInfoStore.setPlayer(player)
       }
     }
   }

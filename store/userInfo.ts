@@ -12,6 +12,8 @@ export default class UserInfo extends VuexModule {
   private loginStatus: boolean = false
   private deviceId: string = ''
   private nowPlaying: Track = EmptyTrack
+  private player?: Spotify.SpotifyPlayer
+
   public get getToken() {
     return this.token
   }
@@ -30,6 +32,10 @@ export default class UserInfo extends VuexModule {
 
   public get getNowPlaying() {
     return this.nowPlaying
+  }
+
+  public get getPlayer() {
+    return this.player
   }
 
   @Mutation
@@ -55,5 +61,9 @@ export default class UserInfo extends VuexModule {
   @Mutation
   public setNowPlaying(value: Track) {
     this.nowPlaying = value
+  }
+  @Mutation
+  public setPlayer(value: Spotify.SpotifyPlayer) {
+    this.player = value
   }
 }
