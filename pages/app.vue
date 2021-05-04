@@ -30,6 +30,12 @@
           'align-items': 'center',
         }"
       >
+        <div v-if="isNotFound">
+          <v-icon size="100" class="mx-auto"> mdi-robot-dead</v-icon>
+          <div class="font-weight-bold text-center grey--text text--darken-2">
+            NOT FOUND
+          </div>
+        </div>
         <v-progress-circular
           :size="70"
           :width="7"
@@ -39,7 +45,7 @@
         ></v-progress-circular>
         <recommended-tracks
           :tracks="tracks"
-          v-if="!isFetching"
+          v-if="!isFetching && !isNotFound"
         ></recommended-tracks>
       </v-col>
     </v-row>
@@ -74,6 +80,7 @@ import SpotifyPlayer from '@/components/Player.vue'
   },
 })
 export default class AuthApp extends Vue {
+  private isNotFound: boolean = false
   get token(): string {
     return userInfoStore.getToken
   }
@@ -92,11 +99,16 @@ export default class AuthApp extends Vue {
   async fetchRecommendedTracks() {
     if (this.isFetching === true) return
     this.isFetching = true
+
+    this.isNotFound = false
     this.tracks.splice(0, this.tracks.length)
     const requestUri = this.$refs.searchOption.createSearchUri()
     if (requestUri !== '') {
       const tracksRes = await fetchRecommendTracks(requestUri)
       this.tracks = this.tracks.concat(tracksRes)
+      if (this.tracks.length === 0) {
+        this.isNotFound = true
+      }
     }
     this.isFetching = false
   }
