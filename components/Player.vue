@@ -1,26 +1,66 @@
 <template>
   <v-row>
     <v-col>
-      <v-card width="200px">
-        <v-row>
+      <v-card outlined>
+        <v-row justify="center" align="center">
           <v-col cols="4">
-            <v-img max-height="70" contain :src="nowPlayingStore.image">
+            <v-img max-height="100px" contain :src="nowPlayingTrack.image">
             </v-img>
           </v-col>
           <v-col cols="8">
             <v-row>
-              <v-col>
-                <v-btn
-                  color="primary"
-                  fab
-                  x-small
-                  dark
-                  outlined
-                  @click="togglePlay"
-                >
-                  <v-icon v-show="!isPlaying">mdi-play</v-icon>
-                  <v-icon v-show="isPlaying">mdi-pause</v-icon>
-                </v-btn>
+              <v-col cols="8">
+                <v-row>
+                  <v-col class="pb-0">
+                    <div
+                      class="font-weight-bold grey--text text--darken-2 subtitle-1"
+                      :class="$style.CardText"
+                    >
+                      {{ nowPlayingTrack.name }}
+                    </div>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col class="py-0">
+                    <div
+                      class="font-weight-bold grey--text text--darken-2 subtitle-2"
+                      :class="$style.CardText"
+                    >
+                      {{ nowPlayingTrack.artist }}
+                    </div>
+                  </v-col>
+                </v-row>
+              </v-col>
+              <v-col cols="4">
+                <v-row justify="center" align="center">
+                  <v-spacer></v-spacer>
+                  <v-col cols="4" class="px-0 pt-6 pb-0">
+                    <v-btn
+                      color="primary"
+                      fab
+                      x-small
+                      dark
+                      outlined
+                      @click="togglePlay"
+                    >
+                      <v-icon v-show="!isPlaying">mdi-play</v-icon>
+                      <v-icon v-show="isPlaying">mdi-pause</v-icon>
+                    </v-btn>
+                  </v-col>
+                  <v-col cols="4" class="px-0 pt-6 pb-0">
+                    <v-btn
+                      color="primary"
+                      fab
+                      x-small
+                      dark
+                      outlined
+                      @click="togglePlay"
+                    >
+                      <v-icon>mdi-volume-high</v-icon>
+                    </v-btn>
+                  </v-col>
+                  <v-spacer></v-spacer>
+                </v-row>
               </v-col>
             </v-row>
             <v-row>
@@ -44,7 +84,7 @@ import SeekBar from '@/components/SeekBar.vue'
 export default class SpotifyPlayer extends Vue {
   private isPlaying: boolean = false
 
-  get nowPlayingStore(): Track {
+  get nowPlayingTrack(): Track {
     return userInfoStore.getNowPlaying
   }
 
@@ -77,7 +117,7 @@ export default class SpotifyPlayer extends Vue {
     }
   }
 
-  @Watch('nowPlayingStore')
+  @Watch('nowPlayingTrack')
   async updateNowPlaying() {
     this.updateIsPlaying()
   }
@@ -137,3 +177,7 @@ export default class SpotifyPlayer extends Vue {
   }
 }
 </script>
+
+<style module>
+@import '@/assets/sass/CardText.scss';
+</style>

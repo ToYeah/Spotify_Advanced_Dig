@@ -44,7 +44,8 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-col>
+      <v-spacer></v-spacer>
+      <v-col cols="8">
         <client-only>
           <spotify-player></spotify-player>
         </client-only>
