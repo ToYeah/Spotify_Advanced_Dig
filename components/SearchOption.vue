@@ -37,7 +37,6 @@
       :key="item.name"
       :unit="item"
     ></option-slider>
-
     <v-row>
       <v-col class="pb-0">
         <v-col class="py-0 px-0">

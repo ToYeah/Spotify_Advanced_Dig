@@ -3,8 +3,8 @@
     <v-row>
       <v-col class="text-center">
         <v-btn :href="authUrl" rounded v-if="!isLogined"
-          >Login with Spotify</v-btn
-        >
+          >Login with Spotif
+        </v-btn>
       </v-col>
     </v-row>
     <!--
@@ -19,39 +19,51 @@
 
     <v-row>
       <v-col md="4" cols="12">
-        <v-tabs show-arrows="">
-          <v-tab href="#Recommend">Recommend</v-tab>
-          <v-tab href="#Search">Search</v-tab>
+        <v-row>
+          <v-col class="pb-0">
+            <v-tabs v-model="tab">
+              <v-tab href="#Recommend">Recommend</v-tab>
+              <v-tab href="#Search">Search</v-tab>
 
-          <v-tab-item value="Search"> </v-tab-item>
-          <v-tab-item value="Recommend">
-            <search-option ref="searchOption"></search-option>
-            <v-row>
-              <v-col class="pt-0">
-                <v-divider class="mx-0"></v-divider>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col>
+              <v-tab-item value="Recommend">
+                <search-option ref="searchOption"></search-option>
+              </v-tab-item>
+              <v-tab-item value="Search">
                 <v-row>
-                  <v-col cols="8">
-                    <v-btn
-                      @click="fetchRecommendedTracks"
-                      rounded
-                      color="primary"
-                      ><v-icon>mdi-magnify </v-icon> search</v-btn
-                    >
-                  </v-col>
-                  <v-col cols="4">
-                    <v-btn @click="reset" rounded color="primary">
-                      <v-icon> mdi-refresh</v-icon>
-                    </v-btn>
+                  <v-col class="pb-0 pt-5">
+                    <v-text-field
+                      class="pa-0 noneUnderLine"
+                      label="Keyword"
+                      v-model="keyword"
+                      clearable
+                    ></v-text-field>
                   </v-col>
                 </v-row>
+              </v-tab-item>
+            </v-tabs>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col class="pt-0">
+            <v-divider class="mx-0"></v-divider>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col>
+            <v-row>
+              <v-col cols="8">
+                <v-btn @click="searchTracks" rounded color="primary"
+                  ><v-icon>mdi-magnify </v-icon> search</v-btn
+                >
+              </v-col>
+              <v-col cols="4">
+                <v-btn @click="resetParams" rounded color="primary">
+                  <v-icon> mdi-refresh</v-icon>
+                </v-btn>
               </v-col>
             </v-row>
-          </v-tab-item>
-        </v-tabs>
+          </v-col>
+        </v-row>
       </v-col>
       <v-col
         md="8"
@@ -115,6 +127,9 @@ import SpotifyPlayer from '@/components/Player.vue'
 export default class AuthApp extends Vue {
   private isNotFound: boolean = false
   private isSearchableParams: boolean = true
+  private tab = 'Recommend'
+  private keyword: string | null = null
+
   get token(): string {
     return userInfoStore.getToken
   }
@@ -131,8 +146,20 @@ export default class AuthApp extends Vue {
     searchOption: SearchOption
   }
 
-  private reset() {
-    this.$refs.searchOption.resetParam()
+  private resetParams() {
+    if (this.tab === 'Recommend') {
+      this.$refs.searchOption.resetParam()
+    } else {
+      console.log('reset')
+    }
+  }
+
+  private searchTracks() {
+    if (this.tab === 'Recommend') {
+      this.fetchRecommendedTracks()
+    } else {
+      console.log('search')
+    }
   }
 
   async fetchRecommendedTracks() {
@@ -183,3 +210,7 @@ export default class AuthApp extends Vue {
   }
 }
 </script>
+
+<style scoped>
+@import '@/assets/sass/UnderLine.scss';
+</style>
