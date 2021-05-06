@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-row>
+    <v-row class="pt-5">
       <v-col class="pb-0 font-weight-bold grey--text text--darken-2">
         Required item
         <v-icon dense color="red" v-if="!isSearchableGenre"
