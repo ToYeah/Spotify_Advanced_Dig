@@ -30,9 +30,13 @@ export const fetchRecommendTracks = async (
         Authorization: `Bearer ${userInfoStore.getToken}`,
       },
     })
+    let trackRes = recommendTracksRes.data.tracks
+    if ('items' in trackRes) {
+      trackRes = trackRes.items
+    }
     console.log(recommendTracksRes)
     const trackAry: Track[] = await Promise.all(
-      recommendTracksRes.data.tracks.map(
+      trackRes.map(
         async (track: {
           id: string
           album: { images: { url: string }[] }

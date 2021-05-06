@@ -154,21 +154,29 @@ export default class AuthApp extends Vue {
     }
   }
 
-  private searchTracks() {
+  private createSearchUri(): string {
+    const requestUri = new URL('https://api.spotify.com/v1/search')
+    if (this.keyword === null || this.keyword === '') {
+      return ''
+    }
+    requestUri.searchParams.set('q', this.keyword)
+    requestUri.searchParams.set('type', 'track')
+    return requestUri.href
+  }
+
+  private async searchTracks() {
     if (this.tab === 'Recommend') {
-      this.fetchRecommendedTracks()
+      await this.fetchTracks(this.$refs.searchOption.createRecommendUri())
     } else {
-      console.log('search')
+      await this.fetchTracks(this.createSearchUri())
     }
   }
 
-  async fetchRecommendedTracks() {
+  async fetchTracks(requestUri: string) {
     if (this.isFetching === true) return
     this.isFetching = true
-
     this.isNotFound = false
     this.tracks.splice(0, this.tracks.length)
-    const requestUri = this.$refs.searchOption.createSearchUri()
     if (requestUri !== '') {
       this.isSearchableParams = true
       const tracksRes = await fetchRecommendTracks(requestUri)

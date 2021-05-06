@@ -117,7 +117,7 @@ export default class SearchOption extends Vue {
     uri.searchParams.set(`max_${name}`, String(max))
   }
 
-  public createSearchUri(): string {
+  public createRecommendUri(): string {
     const requestUri = new URL('https://api.spotify.com/v1/recommendations')
 
     if (!this.isSearchableQuery) {
