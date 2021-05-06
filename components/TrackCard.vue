@@ -2,7 +2,13 @@
   <v-card class="py-2" outlined height="200" min-width="650">
     <v-row>
       <v-col cols="3">
-        <v-img :src="track.image" max-height="176px" max-width="200px" contain>
+        <v-img
+          class="ml-3"
+          :src="track.image"
+          max-height="176px"
+          max-width="200px"
+          contain
+        >
         </v-img>
       </v-col>
       <v-col cols="9">
