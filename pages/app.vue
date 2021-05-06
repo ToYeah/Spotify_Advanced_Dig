@@ -18,7 +18,7 @@
 -->
 
     <v-row>
-      <v-col cols="4">
+      <v-col sm="4" cols="12">
         <search-option ref="searchOption"></search-option>
         <v-row>
           <v-col>
@@ -38,7 +38,8 @@
         </v-row>
       </v-col>
       <v-col
-        cols="8"
+        sm="8"
+        cols="12"
         :style="{
           display: 'flex',
           'justify-content': 'center',
@@ -66,7 +67,7 @@
     </v-row>
     <v-row>
       <v-spacer></v-spacer>
-      <v-col cols="8">
+      <v-col cols="12" sm="8">
         <client-only>
           <spotify-player></spotify-player>
         </client-only>
