@@ -3,6 +3,9 @@
     <v-row>
       <v-col class="pb-0 font-weight-bold grey--text text--darken-2">
         Required item
+        <v-icon dense color="red" v-if="!isSearchableGenre"
+          >mdi-close-thick
+        </v-icon>
       </v-col>
     </v-row>
     <v-row>
@@ -83,6 +86,9 @@ export default class SearchOption extends Vue {
   get isSearchableQuery() {
     const tempoReg = new RegExp(/^[0-9]*$/)
     this.isSearchableGenre = this.selectedGenre.length !== 0
+    if (this.tempoValue === null) {
+      this.tempoValue = ''
+    }
     this.isSearchabkeTempo = tempoReg.test(this.tempoValue)
     return this.isSearchableGenre && this.isSearchabkeTempo
   }

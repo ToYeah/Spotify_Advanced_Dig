@@ -23,14 +23,14 @@
         <v-row>
           <v-col>
             <v-row>
-              <v-col cols="6">
+              <v-col cols="8">
                 <v-btn @click="fetchRecommendedTracks"
                   ><v-icon>mdi-magnify </v-icon> search</v-btn
                 >
               </v-col>
-              <v-col cols="6">
+              <v-col cols="4">
                 <v-btn @click="reset">
-                  <v-icon> mdi-refresh</v-icon> <span> reset </span>
+                  <v-icon> mdi-refresh</v-icon>
                 </v-btn>
               </v-col>
             </v-row>
@@ -46,10 +46,11 @@
           'align-items': 'center',
         }"
       >
-        <div v-if="isNotFound">
+        <div v-if="isNotFound || !isSearchableParams">
           <v-icon size="100" class="mx-auto"> mdi-robot-dead</v-icon>
           <div class="font-weight-bold text-center grey--text text--darken-2">
-            NOT FOUND
+            <span v-if="isNotFound"> NOT FOUND </span>
+            <span v-if="!isSearchableParams"> BAD OPTION </span>
           </div>
         </div>
         <v-progress-circular
@@ -61,7 +62,7 @@
         ></v-progress-circular>
         <recommended-tracks
           :tracks="tracks"
-          v-if="!isFetching && !isNotFound"
+          v-if="!isFetching && !isNotFound && isSearchableParams"
         ></recommended-tracks>
       </v-col>
     </v-row>
@@ -97,6 +98,7 @@ import SpotifyPlayer from '@/components/Player.vue'
 })
 export default class AuthApp extends Vue {
   private isNotFound: boolean = false
+  private isSearchableParams: boolean = true
   get token(): string {
     return userInfoStore.getToken
   }
@@ -125,11 +127,14 @@ export default class AuthApp extends Vue {
     this.tracks.splice(0, this.tracks.length)
     const requestUri = this.$refs.searchOption.createSearchUri()
     if (requestUri !== '') {
+      this.isSearchableParams = true
       const tracksRes = await fetchRecommendTracks(requestUri)
       this.tracks = this.tracks.concat(tracksRes)
       if (this.tracks.length === 0) {
         this.isNotFound = true
       }
+    } else {
+      this.isSearchableParams = false
     }
     this.isFetching = false
   }
