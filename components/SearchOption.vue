@@ -43,7 +43,7 @@
             v-model="tempoValue"
             label="Target Tempo"
             type="Number"
-            clearable="true"
+            clearable
           ></v-text-field>
         </v-col>
       </v-col>

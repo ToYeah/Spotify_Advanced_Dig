@@ -6,7 +6,7 @@
     label="GenreSeed"
     multiple
     hint="Pick your favorite genres"
-    clearable="true"
+    clearable
     flat
     class="pa-0 noneUnderLine"
     single-line
