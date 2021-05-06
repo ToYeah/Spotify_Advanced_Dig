@@ -39,8 +39,8 @@
     ></option-slider>
 
     <v-row>
-      <v-col>
-        <v-col class="pt-0 px-0">
+      <v-col class="pb-0">
+        <v-col class="py-0 px-0">
           <v-text-field
             class="pa-0 noneUnderLine"
             v-model="tempoValue"

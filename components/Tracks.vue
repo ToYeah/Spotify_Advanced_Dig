@@ -4,7 +4,7 @@
       <v-virtual-scroll
         bench="1"
         :items="tracks"
-        height="800"
+        height="600"
         item-height="200"
       >
         <template v-slot:default="{ item }">

@@ -21,15 +21,20 @@
       <v-col sm="4" cols="12">
         <search-option ref="searchOption"></search-option>
         <v-row>
+          <v-col class="pt-0">
+            <v-divider class="mx-0"></v-divider>
+          </v-col>
+        </v-row>
+        <v-row>
           <v-col>
             <v-row>
               <v-col cols="8">
-                <v-btn @click="fetchRecommendedTracks"
+                <v-btn @click="fetchRecommendedTracks" rounded color="primary"
                   ><v-icon>mdi-magnify </v-icon> search</v-btn
                 >
               </v-col>
               <v-col cols="4">
-                <v-btn @click="reset">
+                <v-btn @click="reset" rounded color="primary">
                   <v-icon> mdi-refresh</v-icon>
                 </v-btn>
               </v-col>
