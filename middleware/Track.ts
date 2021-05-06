@@ -61,7 +61,7 @@ export const fetchRecommendTracks = async (
           )
           const artistNames = track.artists.map((x) => x.name)
           const trackRes = new Track(
-            artistNames.join(','),
+            artistNames.join(', '),
             track.album.images[0].url,
             track.name,
             track.id,

@@ -52,9 +52,9 @@
           <v-col>
             <v-row>
               <v-col cols="8">
-                <v-btn @click="searchTracks" rounded color="primary"
-                  ><v-icon>mdi-magnify </v-icon> search</v-btn
-                >
+                <v-btn @click="searchTracks" rounded color="primary">
+                  <v-icon>mdi-magnify </v-icon> search
+                </v-btn>
               </v-col>
               <v-col cols="4">
                 <v-btn @click="resetParams" rounded color="primary">

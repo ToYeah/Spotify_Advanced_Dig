@@ -1,11 +1,11 @@
 <template>
-  <v-card class="py-2" outlined height="200">
+  <v-card class="py-2" outlined height="200" min-width="650">
     <v-row>
-      <v-col cols="4">
+      <v-col cols="3">
         <v-img :src="track.image" max-height="176px" max-width="200px" contain>
         </v-img>
       </v-col>
-      <v-col cols="8">
+      <v-col cols="9">
         <v-row>
           <v-col cols="10">
             <v-row>
@@ -62,7 +62,7 @@
           </v-col>
         </v-row>
         <v-row class="py-3">
-          <v-col>
+          <v-col cols="4">
             <track-property-text
               v-for="item in properties.slice(0, 3)"
               :key="item.title"
@@ -71,7 +71,7 @@
             >
             </track-property-text>
           </v-col>
-          <v-col>
+          <v-col cols="4">
             <track-property-text
               v-for="item in properties.slice(3, 6)"
               :key="item.title"
@@ -80,6 +80,7 @@
             >
             </track-property-text>
           </v-col>
+          <v-spacer></v-spacer>
         </v-row>
       </v-col>
     </v-row>
