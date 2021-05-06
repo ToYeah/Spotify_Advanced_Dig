@@ -150,7 +150,7 @@ export default class AuthApp extends Vue {
     if (this.tab === 'Recommend') {
       this.$refs.searchOption.resetParam()
     } else {
-      console.log('reset')
+      this.keyword = null
     }
   }
 
