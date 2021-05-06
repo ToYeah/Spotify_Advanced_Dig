@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-auto" :style="{ 'max-width': '1300px', width: '100%' }">
+  <div class="mx-auto" :style="{ 'max-width': '80%', width: '100%' }">
     <v-row>
       <v-col class="text-center">
         <v-btn :href="authUrl" rounded v-if="!isLogined"
@@ -18,32 +18,43 @@
 -->
 
     <v-row>
-      <v-col sm="4" cols="12">
-        <search-option ref="searchOption"></search-option>
-        <v-row>
-          <v-col class="pt-0">
-            <v-divider class="mx-0"></v-divider>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col>
+      <v-col md="4" cols="12">
+        <v-tabs show-arrows="">
+          <v-tab href="#Recommend">Recommend</v-tab>
+          <v-tab href="#Search">Search</v-tab>
+
+          <v-tab-item value="Search"> </v-tab-item>
+          <v-tab-item value="Recommend">
+            <search-option ref="searchOption"></search-option>
             <v-row>
-              <v-col cols="8">
-                <v-btn @click="fetchRecommendedTracks" rounded color="primary"
-                  ><v-icon>mdi-magnify </v-icon> search</v-btn
-                >
-              </v-col>
-              <v-col cols="4">
-                <v-btn @click="reset" rounded color="primary">
-                  <v-icon> mdi-refresh</v-icon>
-                </v-btn>
+              <v-col class="pt-0">
+                <v-divider class="mx-0"></v-divider>
               </v-col>
             </v-row>
-          </v-col>
-        </v-row>
+            <v-row>
+              <v-col>
+                <v-row>
+                  <v-col cols="8">
+                    <v-btn
+                      @click="fetchRecommendedTracks"
+                      rounded
+                      color="primary"
+                      ><v-icon>mdi-magnify </v-icon> search</v-btn
+                    >
+                  </v-col>
+                  <v-col cols="4">
+                    <v-btn @click="reset" rounded color="primary">
+                      <v-icon> mdi-refresh</v-icon>
+                    </v-btn>
+                  </v-col>
+                </v-row>
+              </v-col>
+            </v-row>
+          </v-tab-item>
+        </v-tabs>
       </v-col>
       <v-col
-        sm="8"
+        md="8"
         cols="12"
         :style="{
           display: 'flex',
@@ -73,7 +84,7 @@
     </v-row>
     <v-row>
       <v-spacer></v-spacer>
-      <v-col cols="12" sm="8">
+      <v-col cols="12" md="8">
         <client-only>
           <spotify-player></spotify-player>
         </client-only>
