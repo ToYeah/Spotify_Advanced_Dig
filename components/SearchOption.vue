@@ -95,12 +95,12 @@ export default class SearchOption extends Vue {
     this.genreSeeds = await fetchGenreSeeds()
   }
 
-  private resetParam() {
+  public resetParam() {
     this.params.map((param) => {
-      param.range[0] = param.min
-      param.range[1] = param.max
+      this.$set(param.range, 0, param.min)
+      this.$set(param.range, 1, param.max)
     })
-    this.selectedGenre = []
+    this.selectedGenre.splice(0, this.selectedGenre.length)
     this.tempoValue = ''
   }
 

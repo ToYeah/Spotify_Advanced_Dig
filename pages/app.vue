@@ -20,7 +20,22 @@
     <v-row>
       <v-col cols="4">
         <search-option ref="searchOption"></search-option>
-        <v-btn @click="fetchRecommendedTracks">search</v-btn>
+        <v-row>
+          <v-col>
+            <v-row>
+              <v-col cols="6">
+                <v-btn @click="fetchRecommendedTracks"
+                  ><v-icon>mdi-magnify </v-icon> search</v-btn
+                >
+              </v-col>
+              <v-col cols="6">
+                <v-btn @click="reset">
+                  <v-icon> mdi-refresh</v-icon> <span> reset </span>
+                </v-btn>
+              </v-col>
+            </v-row>
+          </v-col>
+        </v-row>
       </v-col>
       <v-col
         cols="8"
@@ -95,6 +110,10 @@ export default class AuthApp extends Vue {
 
   $refs!: {
     searchOption: SearchOption
+  }
+
+  private reset() {
+    this.$refs.searchOption.resetParam()
   }
 
   async fetchRecommendedTracks() {
