@@ -29,11 +29,12 @@
         <v-divider class="mr-1"></v-divider>
       </v-col>
     </v-row>
-    <option-slider :unit="danceability"></option-slider>
-    <option-slider :unit="energy"></option-slider>
-    <option-slider :unit="popularity"></option-slider>
-    <option-slider :unit="valence"></option-slider>
-    <option-slider :unit="instrumentalness"></option-slider>
+    <option-slider
+      v-for="item in params"
+      :key="item.name"
+      :unit="item"
+    ></option-slider>
+
     <v-row>
       <v-col>
         <v-col class="pt-0 px-0">
@@ -66,14 +67,13 @@ import SearchOptionUnit from '@/middleware/SearchOptionUnit'
 })
 export default class SearchOption extends Vue {
   private genreSeeds: string[] = []
-  private danceability = new SearchOptionUnit('Danceability', 0, 100, [0, 100])
-  private energy = new SearchOptionUnit('Energy', 0, 100, [0, 100])
-  private popularity = new SearchOptionUnit('Popularity', 0, 100, [0, 100])
-  private valence = new SearchOptionUnit('Valence', 0, 100, [0, 100])
-  private instrumentalness = new SearchOptionUnit('Instrumentalness', 0, 100, [
-    0,
-    100,
-  ])
+  private params = [
+    new SearchOptionUnit('Danceability', 0, 100, [0, 100]),
+    new SearchOptionUnit('Energy', 0, 100, [0, 100]),
+    new SearchOptionUnit('Popularity', 0, 100, [0, 100]),
+    new SearchOptionUnit('Valence', 0, 100, [0, 100]),
+    new SearchOptionUnit('Instrumentalness', 0, 100, [0, 100]),
+  ]
 
   private tempoValue = ''
   private selectedGenre: string[] = []
@@ -95,6 +95,15 @@ export default class SearchOption extends Vue {
     this.genreSeeds = await fetchGenreSeeds()
   }
 
+  private resetParam() {
+    this.params.map((param) => {
+      param.range[0] = param.min
+      param.range[1] = param.max
+    })
+    this.selectedGenre = []
+    this.tempoValue = ''
+  }
+
   private setQueryParam(uri: URL, unit: SearchOptionUnit) {
     const max = unit.name === 'Popularity' ? unit.range[1] : unit.range[1] / 100
     const min = unit.name === 'Popularity' ? unit.range[0] : unit.range[0] / 100
@@ -113,11 +122,9 @@ export default class SearchOption extends Vue {
     if (this.tempoValue !== '') {
       requestUri.searchParams.set('target_tempo', String(this.tempoValue))
     }
-    this.setQueryParam(requestUri, this.danceability)
-    this.setQueryParam(requestUri, this.energy)
-    this.setQueryParam(requestUri, this.popularity)
-    this.setQueryParam(requestUri, this.valence)
-    this.setQueryParam(requestUri, this.instrumentalness)
+    this.params.map((param) => {
+      this.setQueryParam(requestUri, param)
+    })
     return requestUri.href
   }
 }
