@@ -35,6 +35,9 @@ export default class SeekBar extends Vue {
     this.isMouseDown = false
   }
   private async setSeekPosition() {
+    if (this.position === 0) {
+      this.position = 0.0001
+    }
     this.player?.seek(this.position)
   }
 
