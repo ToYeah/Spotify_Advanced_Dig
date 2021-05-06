@@ -1,95 +1,97 @@
 <template>
-  <v-row>
-    <v-col>
-      <v-card outlined>
-        <v-row justify="center" align="center">
-          <v-col cols="4">
-            <v-img max-height="100px" contain :src="nowPlayingTrack.image">
-            </v-img>
-          </v-col>
-          <v-col cols="8">
-            <v-row>
-              <v-col cols="8">
-                <v-row>
-                  <v-col class="pb-0">
-                    <div
-                      class="font-weight-bold grey--text text--darken-2 subtitle-1"
-                      :class="$style.CardText"
-                    >
-                      {{ nowPlayingTrack.name }}
-                    </div>
-                  </v-col>
-                </v-row>
-                <v-row>
-                  <v-col class="py-0">
-                    <div
-                      class="font-weight-bold grey--text text--darken-2 subtitle-2"
-                      :class="$style.CardText"
-                    >
-                      {{ nowPlayingTrack.artist }}
-                    </div>
-                  </v-col>
-                </v-row>
-              </v-col>
-              <v-col cols="4">
-                <v-row justify="center" align="center">
-                  <v-spacer></v-spacer>
-                  <v-col cols="4" class="px-0 pt-6 pb-0">
-                    <v-btn
-                      color="primary"
-                      fab
-                      x-small
-                      dark
-                      outlined
-                      @click="togglePlay"
-                    >
-                      <v-icon v-show="!isPlaying">mdi-play</v-icon>
-                      <v-icon v-show="isPlaying">mdi-pause</v-icon>
-                    </v-btn>
-                  </v-col>
-                  <v-col cols="4" class="px-0 pt-6 pb-0">
-                    <div>
-                      <v-menu top offset-y="true">
-                        <template v-slot:activator="{ on, attrs }">
-                          <v-btn
-                            color="primary"
-                            fab
-                            x-small
-                            dark
-                            outlined
-                            v-bind="attrs"
-                            v-on="on"
-                          >
-                            <v-icon>mdi-volume-high</v-icon>
-                          </v-btn>
-                        </template>
-                        <v-card>
-                          <v-slider
-                            class="pa-1"
-                            @change="setPlayerVolume"
-                            vertical
-                            max="100"
-                            v-model="playerVolume"
-                          ></v-slider>
-                        </v-card>
-                      </v-menu>
-                    </div>
-                  </v-col>
-                  <v-spacer></v-spacer>
-                </v-row>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col cols="10" class="pb-2 pt-1">
-                <seek-bar ref="seekBar"></seek-bar>
-              </v-col>
-              <v-spacer></v-spacer>
-            </v-row>
-          </v-col>
-        </v-row>
-      </v-card>
-    </v-col>
-  </v-row>
+  <div v-show="isPlayerEnabled">
+    <v-row>
+      <v-col>
+        <v-card outlined>
+          <v-row justify="center" align="center">
+            <v-col cols="4">
+              <v-img max-height="100px" contain :src="nowPlayingTrack.image">
+              </v-img>
+            </v-col>
+            <v-col cols="8">
+              <v-row>
+                <v-col cols="8">
+                  <v-row>
+                    <v-col class="pb-0">
+                      <div
+                        class="font-weight-bold grey--text text--darken-2 subtitle-1"
+                        :class="$style.CardText"
+                      >
+                        {{ nowPlayingTrack.name }}
+                      </div>
+                    </v-col>
+                  </v-row>
+                  <v-row>
+                    <v-col class="py-0">
+                      <div
+                        class="font-weight-bold grey--text text--darken-2 subtitle-2"
+                        :class="$style.CardText"
+                      >
+                        {{ nowPlayingTrack.artist }}
+                      </div>
+                    </v-col>
+                  </v-row>
+                </v-col>
+                <v-col cols="4">
+                  <v-row justify="center" align="center">
+                    <v-spacer></v-spacer>
+                    <v-col cols="4" class="px-0 pt-6 pb-0">
+                      <v-btn
+                        color="primary"
+                        fab
+                        x-small
+                        dark
+                        outlined
+                        @click="togglePlay"
+                      >
+                        <v-icon v-show="!isPlaying">mdi-play</v-icon>
+                        <v-icon v-show="isPlaying">mdi-pause</v-icon>
+                      </v-btn>
+                    </v-col>
+                    <v-col cols="4" class="px-0 pt-6 pb-0">
+                      <div>
+                        <v-menu top offset-y>
+                          <template v-slot:activator="{ on, attrs }">
+                            <v-btn
+                              color="primary"
+                              fab
+                              x-small
+                              dark
+                              outlined
+                              v-bind="attrs"
+                              v-on="on"
+                            >
+                              <v-icon>mdi-volume-high</v-icon>
+                            </v-btn>
+                          </template>
+                          <v-card>
+                            <v-slider
+                              class="pa-1"
+                              @change="setPlayerVolume"
+                              vertical
+                              max="100"
+                              v-model="playerVolume"
+                            ></v-slider>
+                          </v-card>
+                        </v-menu>
+                      </div>
+                    </v-col>
+                    <v-spacer></v-spacer>
+                  </v-row>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col cols="10" class="pb-2 pt-1">
+                  <seek-bar ref="seekBar"></seek-bar>
+                </v-col>
+                <v-spacer></v-spacer>
+              </v-row>
+            </v-col>
+          </v-row>
+        </v-card>
+      </v-col>
+    </v-row>
+  </div>
 </template>
 
 <script lang="ts">
@@ -103,6 +105,7 @@ import SeekBar from '@/components/SeekBar.vue'
 export default class SpotifyPlayer extends Vue {
   private isPlaying: boolean = false
   private playerVolume: number = 15
+  private isPlayerEnabled: boolean = false
 
   get nowPlayingTrack(): Track {
     return userInfoStore.getNowPlaying
@@ -143,6 +146,7 @@ export default class SpotifyPlayer extends Vue {
 
   @Watch('nowPlayingTrack')
   async updateNowPlaying() {
+    this.isPlayerEnabled = true
     this.updateIsPlaying()
   }
 
