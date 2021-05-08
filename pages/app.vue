@@ -21,7 +21,7 @@
       <v-col md="4" cols="12">
         <v-row>
           <v-col class="pb-0">
-            <v-tabs v-model="tab">
+            <v-tabs v-model="tab" grow>
               <v-tab href="#Recommend">Recommend</v-tab>
               <v-tab href="#Search">Search</v-tab>
 
@@ -72,6 +72,7 @@
           display: 'flex',
           'justify-content': 'center',
           'align-items': 'center',
+          height: $vuetify.breakpoint.mdAndUp ? '740px' : '',
         }"
       >
         <div v-if="isNotFound || !isSearchableParams">
