@@ -2,7 +2,7 @@
   <div v-show="isPlayerEnabled">
     <v-row>
       <v-col>
-        <v-card outlined>
+        <v-card outlined max-width="400" :style="{ margin: '0 0 0 auto' }">
           <v-row justify="center" align="center">
             <v-col cols="4">
               <v-img max-height="100px" contain :src="nowPlayingTrack.image">
