@@ -3,7 +3,7 @@
     <v-row class="pt-5">
       <v-col class="pb-0 font-weight-bold grey--text text--darken-2">
         Required item
-        <v-icon dense color="red" v-if="!isSearchableGenre"
+        <v-icon dense color="primary" v-if="!isSearchableGenre"
           >mdi-close-thick
         </v-icon>
       </v-col>
