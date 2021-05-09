@@ -10,7 +10,7 @@
             </v-col>
             <v-col cols="8">
               <v-row>
-                <v-col cols="8">
+                <v-col>
                   <v-row>
                     <v-col class="pb-0">
                       <div
@@ -32,59 +32,52 @@
                     </v-col>
                   </v-row>
                 </v-col>
-                <v-col cols="4">
-                  <v-row justify="center" align="center">
-                    <v-spacer></v-spacer>
-                    <v-col cols="4" class="px-0 pt-6 pb-0">
-                      <v-btn
-                        color="primary"
-                        fab
-                        x-small
-                        dark
-                        outlined
-                        @click="togglePlay"
-                      >
-                        <v-icon v-show="!isPlaying">mdi-play</v-icon>
-                        <v-icon v-show="isPlaying">mdi-pause</v-icon>
-                      </v-btn>
-                    </v-col>
-                    <v-col cols="4" class="px-0 pt-6 pb-0">
-                      <div>
-                        <v-menu top offset-y>
-                          <template v-slot:activator="{ on, attrs }">
-                            <v-btn
-                              color="primary"
-                              fab
-                              x-small
-                              dark
-                              outlined
-                              v-bind="attrs"
-                              v-on="on"
-                            >
-                              <v-icon>mdi-volume-high</v-icon>
-                            </v-btn>
-                          </template>
-                          <v-card>
-                            <v-slider
-                              class="pa-1"
-                              @change="setPlayerVolume"
-                              vertical
-                              max="100"
-                              v-model="playerVolume"
-                            ></v-slider>
-                          </v-card>
-                        </v-menu>
-                      </div>
-                    </v-col>
-                    <v-spacer></v-spacer>
-                  </v-row>
-                </v-col>
               </v-row>
               <v-row>
-                <v-col cols="10" class="pb-2 pt-1">
+                <v-col cols="1" class="px-0">
+                  <v-btn
+                    color="primary"
+                    fab
+                    x-small
+                    dark
+                    outlined
+                    @click="togglePlay"
+                  >
+                    <v-icon v-show="!isPlaying">mdi-play</v-icon>
+                    <v-icon v-show="isPlaying">mdi-pause</v-icon>
+                  </v-btn>
+                </v-col>
+                <v-col cols="8" class="px-4">
                   <seek-bar ref="seekBar"></seek-bar>
                 </v-col>
-                <v-spacer></v-spacer>
+                <v-col cols="1" class="px-0">
+                  <div>
+                    <v-menu top offset-y>
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-btn
+                          color="primary"
+                          fab
+                          x-small
+                          dark
+                          outlined
+                          v-bind="attrs"
+                          v-on="on"
+                        >
+                          <v-icon>mdi-volume-high</v-icon>
+                        </v-btn>
+                      </template>
+                      <v-card>
+                        <v-slider
+                          class="pa-1"
+                          @change="setPlayerVolume"
+                          vertical
+                          max="100"
+                          v-model="playerVolume"
+                        ></v-slider>
+                      </v-card>
+                    </v-menu>
+                  </div>
+                </v-col>
               </v-row>
             </v-col>
           </v-row>
