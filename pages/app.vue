@@ -2,7 +2,7 @@
   <div class="mx-auto" :style="{ 'max-width': '80%', width: '100%' }">
     <v-row>
       <v-col class="text-center">
-        <v-btn :href="authUrl" rounded v-if="!isLogined"
+        <v-btn :href="authUrl" rounded v-if="!isLogined" color="primary"
           >Login with Spotif
         </v-btn>
       </v-col>
@@ -52,7 +52,12 @@
           <v-col>
             <v-row>
               <v-col cols="8">
-                <v-btn @click="searchTracks" rounded color="primary">
+                <v-btn
+                  @click="searchTracks"
+                  rounded
+                  color="primary"
+                  :disabled="!isLogined"
+                >
                   <v-icon>mdi-magnify </v-icon> search
                 </v-btn>
               </v-col>
@@ -75,7 +80,13 @@
           height: $vuetify.breakpoint.mdAndUp ? '740px' : '',
         }"
       >
-        <div v-if="isNotFound || !isSearchableParams">
+        <div v-if="!isLogined">
+          <v-icon size="100" class="mx-auto"> mdi-magnify</v-icon>
+          <div class="font-weight-bold text-center grey--text text--darken-2">
+            <span> PLEASE LOGIN ! </span>
+          </div>
+        </div>
+        <div v-if="(isNotFound || !isSearchableParams) && isLogined">
           <v-icon size="100" class="mx-auto"> mdi-robot-dead</v-icon>
           <div class="font-weight-bold text-center grey--text text--darken-2">
             <span v-if="isNotFound"> NOT FOUND </span>
@@ -91,7 +102,7 @@
         ></v-progress-circular>
         <recommended-tracks
           :tracks="tracks"
-          v-if="!isFetching && !isNotFound && isSearchableParams"
+          v-if="!isFetching && !isNotFound && isSearchableParams && isLogined"
         ></recommended-tracks>
       </v-col>
     </v-row>
