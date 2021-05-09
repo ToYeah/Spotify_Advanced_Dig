@@ -24,7 +24,7 @@
                 {{ unit.name }}
               </v-card-title>
 
-              <v-card-text>
+              <v-card-text class="pt-4">
                 {{ information }}
               </v-card-text>
 
