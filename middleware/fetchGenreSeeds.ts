@@ -12,7 +12,14 @@ export const fetchGenreSeeds = async (): Promise<string[]> => {
           Authorization: `Bearer ${userInfoStore.getToken}`,
         },
       }
-    )
+    ).catch((e) => {
+      console.log(e)
+      return e.response
+    })
+    if (genreSeedsRes.status !== 200)
+    {
+      return []
+    }
     const res: string[] = genreSeedsRes.data.genres
     return res
   }

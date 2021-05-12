@@ -29,7 +29,14 @@ export const fetchRecommendTracks = async (
       headers: {
         Authorization: `Bearer ${userInfoStore.getToken}`,
       },
+    }).catch((e) => {
+      console.log(e)
+      return e.response
     })
+    if (recommendTracksRes.status !== 200)
+    {
+      return []
+    }
     let trackRes = recommendTracksRes.data.tracks
     if ('items' in trackRes) {
       trackRes = trackRes.items
@@ -50,7 +57,10 @@ export const fetchRecommendTracks = async (
                 Authorization: `Bearer ${userInfoStore.getToken}`,
               },
             }
-          )
+          ).catch((e) => {
+            console.log(e)
+            return e.response
+          })
           const trackInfoRes = await axios.get(
             `https://api.spotify.com/v1/tracks/${track.id}`,
             {
@@ -58,7 +68,14 @@ export const fetchRecommendTracks = async (
                 Authorization: `Bearer ${userInfoStore.getToken}`,
               },
             }
-          )
+          ).catch((e) => {
+            console.log(e)
+            return e.response
+          })
+          if (trackInfoRes.status !== 200 || featureRes.status !== 200)
+          {
+            return EmptyTrack
+          }
           const artistNames = track.artists.map((x) => x.name)
           const trackRes = new Track(
             artistNames.join(', '),
