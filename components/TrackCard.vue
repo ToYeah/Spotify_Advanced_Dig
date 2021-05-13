@@ -95,7 +95,7 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'nuxt-property-decorator'
-import Track from '~/middleware/Track'
+import Track from '~/plugins/Track'
 import TrackPropertyText from '@/components/TrackPropertyText.vue'
 import axios from 'axios'
 import { userInfoStore } from '~/store'

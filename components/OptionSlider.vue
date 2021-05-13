@@ -68,7 +68,7 @@
 import { Vue, Component, Prop } from 'nuxt-property-decorator'
 import SearchOptionUnit, {
   unitInformations,
-} from '@/middleware/SearchOptionUnit'
+} from '~/plugins/SearchOptionUnit'
 
 @Component
 export default class OptionSlider extends Vue {

@@ -1,5 +1,5 @@
 import { Module, VuexModule, Mutation } from 'vuex-module-decorators'
-import Track, { EmptyTrack } from '@/middleware/Track'
+import Track, { EmptyTrack } from '@/plugins/Track'
 
 @Module({
   name: 'userInfo',

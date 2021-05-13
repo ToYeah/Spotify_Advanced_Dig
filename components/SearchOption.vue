@@ -58,8 +58,8 @@ import { Vue, Component, Prop, Watch } from 'nuxt-property-decorator'
 import { userInfoStore } from '@/store'
 import GenreSeedSelect from '@/components/Genre.vue'
 import OptionSlider from '@/components/OptionSlider.vue'
-import { fetchGenreSeeds } from '@/middleware/fetchGenreSeeds'
-import SearchOptionUnit from '@/middleware/SearchOptionUnit'
+import { fetchGenreSeeds } from '~/plugins/fetchGenreSeeds'
+import SearchOptionUnit from '~/plugins/SearchOptionUnit'
 
 @Component({
   components: {

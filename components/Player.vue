@@ -90,7 +90,7 @@
 <script lang="ts">
 import { Vue, Component, Watch } from 'nuxt-property-decorator'
 import { userInfoStore } from '@/store'
-import Track from '~/middleware/Track'
+import Track from '~/plugins/Track'
 import axios from 'axios'
 import SeekBar from '@/components/SeekBar.vue'
 

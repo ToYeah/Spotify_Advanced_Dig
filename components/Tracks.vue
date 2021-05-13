@@ -8,7 +8,7 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'nuxt-property-decorator'
-import Track, { fetchRecommendTracks } from '@/middleware/Track'
+import Track, { fetchRecommendTracks } from '~/plugins/Track'
 import TrackCard from '@/components/TrackCard.vue'
 
 @Component({ components: { TrackCard } })

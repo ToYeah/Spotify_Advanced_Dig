@@ -25,7 +25,7 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'nuxt-property-decorator'
-import UserProfile from '@/middleware/fetchUserProfile'
+import UserProfile from '~/plugins/fetchUserProfile'
 
 @Component
 export default class UserProfileCard extends Vue {
