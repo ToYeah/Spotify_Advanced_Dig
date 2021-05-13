@@ -4,7 +4,6 @@
       <v-col class="pb-1">
         <div class="grey--text text--darken-1 subtitle-1">
           {{ unit.name }}
-
           <v-dialog v-model="dialog" width="500">
             <template v-slot:activator="{ on, attrs }">
               <v-btn
