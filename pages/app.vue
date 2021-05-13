@@ -3,7 +3,7 @@
     <v-row>
       <v-col class="text-center">
         <v-btn :href="authUrl" rounded v-if="!isLogined" color="primary"
-          >Login with Spotif
+          >Login with Spotify
         </v-btn>
       </v-col>
     </v-row>
