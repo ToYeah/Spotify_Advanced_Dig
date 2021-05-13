@@ -11,7 +11,6 @@
                 color="primary"
                 icon
                 x-small
-                :href="trackUri"
                 v-bind="attrs"
                 v-on="on"
               >
