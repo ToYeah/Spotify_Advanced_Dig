@@ -6,8 +6,8 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - spotify_app',
-    title: 'spotify_app',
+    titleTemplate: '%s',
+    title: 'SpotifyAdvancedDig',
     htmlAttrs: {
       lang: 'en'
     },

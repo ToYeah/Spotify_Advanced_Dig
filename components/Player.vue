@@ -152,7 +152,7 @@ export default class SpotifyPlayer extends Vue {
       window.onSpotifyWebPlaybackSDKReady = () => {
         const token = `${userInfoStore.getToken}`
         const player = new Spotify.Player({
-          name: 'SpotifyOptionSearch',
+          name: 'AdvancedDig',
           getOAuthToken: (cb) => {
             cb(token)
           },
