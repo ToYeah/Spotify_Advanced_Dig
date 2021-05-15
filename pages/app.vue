@@ -7,16 +7,6 @@
         </v-btn>
       </v-col>
     </v-row>
-    <!--
-
-    <v-row>
-      <v-col>
-        <h3>{{ token }}</h3>
-      </v-col>
-    </v-row>
-    <user-profile-card :userProfile="userProfile"> </user-profile-card>
--->
-
     <v-row>
       <v-col md="4" cols="12">
         <v-row>
