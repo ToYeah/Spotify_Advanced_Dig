@@ -195,7 +195,6 @@ export default class AuthApp extends Vue {
   async asyncData(
     context: Context
   ): Promise<{
-    userProfile: UserProfile
     authUrl: string
   }> {
     const { $config } = context
@@ -212,9 +211,7 @@ export default class AuthApp extends Vue {
     url.searchParams.set('client_id', $config.clientId)
     url.searchParams.set('state', 'state')
     const authUrlRes = url.href
-    const userProfileRes = await fetchUserProfile()
     return {
-      userProfile: userProfileRes,
       authUrl: authUrlRes,
     }
   }
