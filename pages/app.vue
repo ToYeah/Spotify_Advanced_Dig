@@ -210,9 +210,8 @@ export default class AuthApp extends Vue {
     url.searchParams.set('redirect_uri', $config.redirectUri)
     url.searchParams.set('client_id', $config.clientId)
     url.searchParams.set('state', 'state')
-    const authUrlRes = url.href
     return {
-      authUrl: authUrlRes,
+      authUrl: url.href
     }
   }
 }
