@@ -111,8 +111,6 @@
 import { Vue, Component } from 'nuxt-property-decorator'
 import { userInfoStore } from '@/store'
 import { Context } from '@nuxt/types'
-import UserProfile, { fetchUserProfile } from '~/plugins/fetchUserProfile'
-import UserProfileCard from '@/components/UserProfileCard.vue'
 import SearchOption from '@/components/SearchOption.vue'
 import RecommendedTracks from '@/components/Tracks.vue'
 import Track, { fetchRecommendTracks } from '~/plugins/Track'
@@ -120,7 +118,6 @@ import SpotifyPlayer from '@/components/Player.vue'
 
 @Component({
   components: {
-    UserProfileCard,
     SearchOption,
     RecommendedTracks,
     SpotifyPlayer,
