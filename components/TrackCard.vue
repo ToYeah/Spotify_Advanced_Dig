@@ -42,6 +42,7 @@
               x-small
               dark
               outlined
+              :disabled="!isPlayerAvailable"
               class="mt-1"
               @click="playBackMusic"
             >
@@ -114,6 +115,10 @@ export default class TrackCard extends Vue {
     })
     res.push({ title: 'Popularity', value: String(this.track.popularity) })
     return res
+  }
+
+  get isPlayerAvailable() {
+    return userInfoStore.getIsPlayerAvailable
   }
 
   private async playBackMusic() {

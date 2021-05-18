@@ -114,6 +114,7 @@ import { Context } from '@nuxt/types'
 import SearchOption from '@/components/SearchOption.vue'
 import RecommendedTracks from '@/components/Tracks.vue'
 import Track, { fetchRecommendTracks } from '~/plugins/Track'
+import { fetchUserProduct } from '@/plugins/fetchUserProduct'
 import SpotifyPlayer from '@/components/Player.vue'
 
 @Component({
@@ -189,6 +190,25 @@ export default class AuthApp extends Vue {
     this.isFetching = false
   }
 
+  async fetch(): Promise<void> {
+    if (userInfoStore.getloginStatus) {
+      const ua = window.navigator.userAgent.toLowerCase()
+      const userInfoRes = await fetchUserProduct()
+      if (
+        ua.indexOf('iphone') !== -1 ||
+        ua.indexOf('ipad') !== -1 ||
+        ua.indexOf('android') !== -1 ||
+        userInfoRes !== 'premium'
+      ) {
+        userInfoStore.setIsPlayerAvailable(false)
+      } else {
+        userInfoStore.setIsPlayerAvailable(true)
+      }
+    } else {
+      userInfoStore.setIsPlayerAvailable(false)
+    }
+  }
+
   async asyncData(
     context: Context
   ): Promise<{
@@ -208,7 +228,7 @@ export default class AuthApp extends Vue {
     url.searchParams.set('client_id', $config.clientId)
     url.searchParams.set('state', 'state')
     return {
-      authUrl: url.href
+      authUrl: url.href,
     }
   }
 }
