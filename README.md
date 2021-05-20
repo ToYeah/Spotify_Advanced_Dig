@@ -12,6 +12,12 @@ Application to search music from Spotify
 
 [SpotifyAPIとNuxtでDigるWebアプリを作った](https://qiita.com/ToYeah0102/items/72f8fc8be5a9e8a2fb99)
 
+# Tools
+- Nuxt.js
+- TypeScript
+- SpotifyAPI
+- Heroku
+
 ## Build Setup
 
 ```bash
