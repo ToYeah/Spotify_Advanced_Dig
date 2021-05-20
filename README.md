@@ -1,4 +1,4 @@
-# spotify_Advanced_Dig
+# Spotify_Advanced_Dig
 
 Application to search music from Spotify
 
