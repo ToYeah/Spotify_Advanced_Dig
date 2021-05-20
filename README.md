@@ -1,4 +1,14 @@
-# spotify_app
+# spotify_Advanced_Dig
+
+Application to search music from Spotify
+
+#Application
+
+[Spotify Advanced Dig](https://spotify-dig.herokuapp.com/app)
+
+#Article
+
+[SpotifyAPIとNuxtでDigるWebアプリを作った](https://qiita.com/ToYeah0102/items/72f8fc8be5a9e8a2fb99)
 
 ## Build Setup
 
