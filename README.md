@@ -2,11 +2,13 @@
 
 Application to search music from Spotify
 
-#Application
+![ad](https://user-images.githubusercontent.com/62199197/118910373-4d9b7f00-b95f-11eb-8c58-f5664e50da55.png)
+
+# Application
 
 [Spotify Advanced Dig](https://spotify-dig.herokuapp.com/app)
 
-#Article
+# Article
 
 [SpotifyAPIとNuxtでDigるWebアプリを作った](https://qiita.com/ToYeah0102/items/72f8fc8be5a9e8a2fb99)
 
